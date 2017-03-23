@@ -1,4 +1,3 @@
-
 package org.pasa.sispasa.cargapasa.model;
 
 import java.util.Date;
@@ -9,7 +8,7 @@ import java.util.List;
  * @author Hudson Schumaker
  */
 public class Funcionario {
-    
+
     private Long id;
     private String matriculaOrigem;
     private String matriculaPasa;
@@ -34,8 +33,12 @@ public class Funcionario {
     private MotivoDesligamento motivoDesligamento;
     private List<Beneficiario> beneficiarios;
     private Pessoa pessoa;
-    
-    public Funcionario(){
+
+    public Funcionario() {
+    }
+
+    public Funcionario(Long id) {
+        this.id = id;
     }
 
     public Long getId() {

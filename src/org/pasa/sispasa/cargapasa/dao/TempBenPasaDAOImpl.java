@@ -8,7 +8,7 @@ import java.sql.Statement;
 import org.pasa.sispasa.cargapasa.connection.ConnectionSQLServer;
 import org.pasa.sispasa.cargapasa.map.MapaCampos;
 import org.pasa.sispasa.cargapasa.model.Empresa;
-import org.pasa.sispasa.cargapasa.model.TempBenPASA;
+import org.pasa.sispasa.cargapasa.load.TempBenPASA;
 
 /**
  *

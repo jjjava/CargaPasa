@@ -12,7 +12,7 @@ import org.pasa.sispasa.cargapasa.enumeration.EnumBanco;
 import org.pasa.sispasa.cargapasa.map.MapaCampos;
 import org.pasa.sispasa.cargapasa.map.MapaCamposBen;
 import org.pasa.sispasa.cargapasa.map.PosicaoCampo;
-import org.pasa.sispasa.cargapasa.model.TempBenPASA;
+import org.pasa.sispasa.cargapasa.load.TempBenPASA;
 import org.pasa.sispasa.cargapasa.util.CargaPasaCommon;
 import org.pasa.sispasa.cargapasa.util.StringUtil;
 

@@ -5,15 +5,14 @@ package org.pasa.sispasa.cargapasa.model;
  *
  * @author Hudson Schumaker
  */
-public class NivelEscolaridade {
+public class TipoTelefone {
     private Long id;
     private String descricao;
-    private String codExterno;
     
-    public NivelEscolaridade(){
+    public TipoTelefone(){
     }
     
-    public NivelEscolaridade(Long id){
+    public TipoTelefone(Long id){
         this.id = id;
     }
 
@@ -31,13 +30,5 @@ public class NivelEscolaridade {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public String getCodExterno() {
-        return codExterno;
-    }
-
-    public void setCodExterno(String codExterno) {
-        this.codExterno = codExterno;
     }
 }

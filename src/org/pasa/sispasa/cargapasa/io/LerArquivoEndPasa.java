@@ -11,7 +11,7 @@ import org.pasa.sispasa.cargapasa.bean.TempEndPasaBeanImpl;
 import org.pasa.sispasa.cargapasa.map.MapaCampos;
 import org.pasa.sispasa.cargapasa.map.MapaCamposEnd;
 import org.pasa.sispasa.cargapasa.map.PosicaoCampo;
-import org.pasa.sispasa.cargapasa.model.TempEndPASA;
+import org.pasa.sispasa.cargapasa.load.TempEndPASA;
 import org.pasa.sispasa.cargapasa.util.CargaPasaCommon;
 import org.pasa.sispasa.cargapasa.util.StringUtil;
 

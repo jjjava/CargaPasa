@@ -1,7 +1,7 @@
 package org.pasa.sispasa.cargapasa.bean;
 
 import org.pasa.sispasa.cargapasa.dao.TempEndPasaDAOImpl;
-import org.pasa.sispasa.cargapasa.model.TempEndPASA;
+import org.pasa.sispasa.cargapasa.load.TempEndPASA;
 
 /**
  *

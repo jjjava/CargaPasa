@@ -1,10 +1,11 @@
-
 package org.pasa.sispasa.cargapasa.model;
 
 import java.util.Date;
 import org.pasa.sispasa.cargapasa.enumeration.EnumTipoAposentadoria;
 import org.pasa.sispasa.cargapasa.enumeration.EnumTipoAssociado;
 import org.pasa.sispasa.cargapasa.enumeration.EnumTipoRespPagamento;
+import org.pasa.sispasa.cargapasa.util.CargaPasaCommon;
+import org.pasa.sispasa.cargapasa.util.DateUtil;
 
 /**
  *
@@ -35,8 +36,16 @@ public class Associado {
     private TaxaAssociado taxaAssociado;
     private SituacaoAssociado situacaoAssociado;
     private ResponsavelLegal responsavelLegal;
-    
-    public Associado(){
+
+    public Associado() {
+        this.idUsuario = CargaPasaCommon.USER_CARGA;
+        this.dataUltimaAlteracao = DateUtil.obterDataAtual();
+    }
+
+    public Associado(Long id) {
+        this.id = id;
+        this.idUsuario = CargaPasaCommon.USER_CARGA;
+        this.dataUltimaAlteracao = DateUtil.obterDataAtual();
     }
 
     public Long getId() {

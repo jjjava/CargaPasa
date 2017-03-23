@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package org.pasa.sispasa.cargapasa.model;
 
 /**
@@ -10,5 +6,29 @@ package org.pasa.sispasa.cargapasa.model;
  * @author Hudson Schumaker
  */
 public class Pais {
+    private Long id;
+    private String nome;
+
+    public Pais() {
+    }
     
+    public Pais(Long id){
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }

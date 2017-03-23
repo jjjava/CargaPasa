@@ -2,7 +2,7 @@ package org.pasa.sispasa.cargapasa.bean;
 
 import java.util.List;
 import org.pasa.sispasa.cargapasa.dao.TempBenPasaDAOImpl;
-import org.pasa.sispasa.cargapasa.model.TempBenPASA;
+import org.pasa.sispasa.cargapasa.load.TempBenPASA;
 
 /**
  *

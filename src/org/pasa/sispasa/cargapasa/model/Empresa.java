@@ -2,6 +2,8 @@ package org.pasa.sispasa.cargapasa.model;
 
 import java.util.Date;
 import java.util.List;
+import org.pasa.sispasa.cargapasa.util.CargaPasaCommon;
+import org.pasa.sispasa.cargapasa.util.DateUtil;
 
 /**
  *
@@ -31,10 +33,14 @@ public class Empresa {
     private List<Convenio> convenios;
     
     public Empresa(){
+        this.idUsuario = CargaPasaCommon.USER_CARGA;
+        this.dataUltimaAtualizacao = DateUtil.obterDataAtual();
     }
     
     public Empresa(Long id){
         this.id = id;
+        this.idUsuario = CargaPasaCommon.USER_CARGA;
+        this.dataUltimaAtualizacao = DateUtil.obterDataAtual();
     }
 
     public Long getId() {

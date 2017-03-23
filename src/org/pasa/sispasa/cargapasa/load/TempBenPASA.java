@@ -1,4 +1,4 @@
-package org.pasa.sispasa.cargapasa.model;
+package org.pasa.sispasa.cargapasa.load;
 
 /**
  *

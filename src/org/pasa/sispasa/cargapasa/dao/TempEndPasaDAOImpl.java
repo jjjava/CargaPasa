@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import org.pasa.sispasa.cargapasa.connection.ConnectionSQLServer;
 import org.pasa.sispasa.cargapasa.map.MapaCampos;
-import org.pasa.sispasa.cargapasa.model.TempEndPASA;
+import org.pasa.sispasa.cargapasa.load.TempEndPASA;
 
 /**
  *
