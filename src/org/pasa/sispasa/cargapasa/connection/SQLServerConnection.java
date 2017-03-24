@@ -8,12 +8,12 @@ import java.sql.SQLException;
  *
  * @author Hudson Schumaker
  */
-public class ConnectionSQLServer {
+public class SQLServerConnection {
 
-    public ConnectionSQLServer() {
+    public SQLServerConnection() {
     }
 
-    public static Connection getConexao() {
+    public static Connection getConnectionPipe() {
         Connection conn = null;
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");

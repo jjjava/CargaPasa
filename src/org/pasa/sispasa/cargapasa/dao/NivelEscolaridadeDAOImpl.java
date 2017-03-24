@@ -5,58 +5,57 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import org.pasa.sispasa.cargapasa.connection.SQLServerConnection;
-import org.pasa.sispasa.cargapasa.model.Pessoa;
 
 /**
  *
  * @author Hudson Schumaker
  */
-public class PessoaDAOImpl {
+public class NivelEscolaridadeDAOImpl {
 
     private final Connection conn;
 
-    public PessoaDAOImpl() {
+    public NivelEscolaridadeDAOImpl() {
         this.conn = SQLServerConnection.getConnectionPipe();
     }
-    
-    public Pessoa get(Long id){
-        Pessoa pessoa = new Pessoa();
-        String sql = "select * from pessoa where id_pessoa = "+id;
-        
+
+    public Long get(String cod) {
+        Long id = null;
+        String sql = "select * from nivel_escolaridade where cd_externo = '" + cod + "'";
+
         Statement stmt = null;
         ResultSet rs = null;
         try {
             stmt = conn.createStatement();
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                pessoa.setId(rs.getLong("id_pessoa"));
-                pessoa.setCpf("cpf");
+                id = rs.getLong("id_nivel_escol");
             }
         } catch (SQLException ex) {
-            System.err.println(this.getClass().getName() + ":\n" + ex);
+            System.err.println(this.getClass().getName() + "\n" + ex);
+            return null;
         } finally {
             if (null != rs) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                    System.err.println(this.getClass().getName() + "\n" + ex);
                 }
             }
             if (null != stmt) {
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                    System.err.println(this.getClass().getName() + "\n" + ex);
                 }
             }
             if (null != conn) {
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                    System.err.println(this.getClass().getName() + "\n" + ex);
                 }
             }
         }
-        return pessoa;
+        return id;
     }
 }

@@ -7,9 +7,13 @@ package org.pasa.sispasa.cargapasa.util;
  */
 public class CargaPasaCommon {
 
-    public static final String ASSOCIADO = "A";
+    //PASA
+    public static final String USUARIO = "A";
+    public static final String ASSOCIADO = "B";
     public static final String DEPENDENTE = "D";
     public static final String AGREGADO = "G";
+    
+    //AMS
     public static final String BENEFICIARIO = "D";
     public static final String FUNCIONARIO = "T";
    

@@ -1,6 +1,6 @@
 package org.pasa.sispasa.cargapasa.run;
 
-import org.pasa.sispasa.cargapasa.bean.CargaPasa;
+import org.pasa.sispasa.cargapasa.bean.CargaPasaBeanImpl;
 
 /**
  *
@@ -9,7 +9,7 @@ import org.pasa.sispasa.cargapasa.bean.CargaPasa;
 public class Start {
 
     public static void main(String args[]) {
-        CargaPasa carga = new CargaPasa();
+        CargaPasaBeanImpl carga = new CargaPasaBeanImpl();
         carga.inicio();
     }
 }

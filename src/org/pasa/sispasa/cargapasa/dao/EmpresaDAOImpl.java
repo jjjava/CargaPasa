@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import org.pasa.sispasa.cargapasa.connection.ConnectionSQLServer;
+import org.pasa.sispasa.cargapasa.connection.SQLServerConnection;
 import org.pasa.sispasa.cargapasa.model.Empresa;
 
 /**
@@ -16,7 +16,7 @@ public class EmpresaDAOImpl {
     private final Connection conn;
 
     public EmpresaDAOImpl() {
-        conn = ConnectionSQLServer.getConexao();
+        conn = SQLServerConnection.getConnectionPipe();
     }
 
     public Empresa get(Long id) {
@@ -33,27 +33,27 @@ public class EmpresaDAOImpl {
                 empresa.setCodEmpresaVale("cd_empresa_vale");
             }
         } catch (SQLException ex) {
-            System.err.println(ex);
+            System.err.println(this.getClass().getName() + "\n" + ex);
         } finally {
             if (null != rs) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    System.err.println(ex);
+                    System.err.println(this.getClass().getName() + "\n" + ex);
                 }
             }
             if (null != stmt) {
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    System.err.println(ex);
+                    System.err.println(this.getClass().getName() + "\n" + ex);
                 }
             }
             if (null != conn) {
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    System.err.println(ex);
+                    System.err.println(this.getClass().getName() + "\n" + ex);
                 }
             }
         }
@@ -74,27 +74,27 @@ public class EmpresaDAOImpl {
                 empresa.setCodEmpresaVale("cd_empresa_vale");
             }
         } catch (SQLException ex) {
-            System.err.println(ex);
+            System.err.println(this.getClass().getName() + "\n" + ex);
         } finally {
             if (null != rs) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    System.err.println(ex);
+                    System.err.println(this.getClass().getName() + "\n" + ex);
                 }
             }
             if (null != stmt) {
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    System.err.println(ex);
+                    System.err.println(this.getClass().getName() + "\n" + ex);
                 }
             }
             if (null != conn) {
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    System.err.println(ex);
+                    System.err.println(this.getClass().getName() + "\n" + ex);
                 }
             }
         }

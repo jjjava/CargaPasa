@@ -42,8 +42,10 @@ public class MapaCamposBen {
         mapa.put(MapaCampos.MATRICULA_ATUALIZADOR, new PosicaoCampo(128, 133));
         mapa.put(MapaCampos.TIPO_BENEFICIARIO, new PosicaoCampo(134, 135));
         mapa.put(MapaCampos.CODIGO_DIREITO_PASA, new PosicaoCampo(135, 136));
-        mapa.put(MapaCampos.GRAU_ESCOLARIDADE, new PosicaoCampo(136, 137));
-        mapa.put(MapaCampos.INDICAR_CONCLUSAO, new PosicaoCampo(137, 138));
+       
+         mapa.put(MapaCampos.INDICAR_CONCLUSAO, new PosicaoCampo(136, 137));
+        mapa.put(MapaCampos.GRAU_ESCOLARIDADE, new PosicaoCampo(137, 138));
+       
         mapa.put(MapaCampos.DATA_FALECIMENTO, new PosicaoCampo(138, 148));
         mapa.put(MapaCampos.MATRICULA_PASA, new PosicaoCampo(148, 153));
         mapa.put(MapaCampos.NOME_DA_MAE, new PosicaoCampo(154, 223));

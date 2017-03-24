@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import org.pasa.sispasa.cargapasa.connection.ConnectionSQLServer;
+import org.pasa.sispasa.cargapasa.connection.SQLServerConnection;
 import org.pasa.sispasa.cargapasa.model.Empresa;
 import org.pasa.sispasa.cargapasa.model.Funcionario;
 import org.pasa.sispasa.cargapasa.model.Pessoa;
@@ -18,7 +18,7 @@ public class FuncionarioDAOImpl {
     private final Connection conn;
 
     public FuncionarioDAOImpl() {
-        this.conn = ConnectionSQLServer.getConexao();
+        this.conn = SQLServerConnection.getConnectionPipe();
     }
 
     public Funcionario get(Long empresa, String matricula) {
@@ -37,27 +37,27 @@ public class FuncionarioDAOImpl {
                 funcionario.setPessoa(new Pessoa(rs.getLong("id_pessoa")));
             }
         } catch (SQLException ex) {
-            System.err.println(ex);
+            System.err.println(this.getClass().getName() + ":\n" + ex);
         } finally {
             if (null != rs) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    System.err.println(ex);
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
                 }
             }
             if (null != stmt) {
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    System.err.println(ex);
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
                 }
             }
             if (null != conn) {
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    System.err.println(ex);
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
                 }
             }
         }

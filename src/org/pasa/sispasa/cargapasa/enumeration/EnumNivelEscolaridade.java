@@ -16,8 +16,8 @@ public enum EnumNivelEscolaridade {
     MESTRADO(6L, "Mestrado"),
     DOUTORADO(7L, "Doutorado");
 
-    private Long indice;
-    private String descricao;
+    private final Long indice;
+    private final String descricao;
 
     private EnumNivelEscolaridade(Long indice, String descricao) {
         this.indice = indice;

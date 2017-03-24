@@ -17,8 +17,9 @@ public class Endereco {
     private String cep;
     private Integer indAtivo;
     private Date dataUltimaAtualizacao;
-    private Municipio municipio;
-    private Estado estado;
+    private Long idUsuario;
+    private Long idMunicipio;
+    private String idEstado;
 
     public Endereco() {
         this.indAtivo = 1;
@@ -95,19 +96,27 @@ public class Endereco {
         this.dataUltimaAtualizacao = dataUltimaAtualizacao;
     }
 
-    public Municipio getMunicipio() {
-        return municipio;
+    public Long getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setMunicipio(Municipio municipio) {
-        this.municipio = municipio;
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public Estado getEstado() {
-        return estado;
+    public Long getIdMunicipio() {
+        return idMunicipio;
     }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
+    public void setIdMunicipio(Long idMunicipio) {
+        this.idMunicipio = idMunicipio;
+    }
+
+    public String getIdEstado() {
+        return idEstado;
+    }
+
+    public void setIdEstado(String idEstado) {
+        this.idEstado = idEstado;
     }
 }

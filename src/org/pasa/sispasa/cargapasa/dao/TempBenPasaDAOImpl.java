@@ -5,9 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import org.pasa.sispasa.cargapasa.connection.ConnectionSQLServer;
+import java.util.ArrayList;
+import java.util.List;
+import org.pasa.sispasa.cargapasa.connection.SQLServerConnection;
 import org.pasa.sispasa.cargapasa.map.MapaCampos;
-import org.pasa.sispasa.cargapasa.model.Empresa;
 import org.pasa.sispasa.cargapasa.load.TempBenPASA;
 
 /**
@@ -19,12 +20,290 @@ public class TempBenPasaDAOImpl {
     private final Connection conn;
 
     public TempBenPasaDAOImpl() {
-        conn = ConnectionSQLServer.getConexao();
+        conn = SQLServerConnection.getConnectionPipe();
     }
 
     public TempBenPASA get(Long id) {
         TempBenPASA modelo = new TempBenPASA();
         String sql = "select * from TB_TEMP_BEN_PASA where id = " + id;
+
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                modelo.setId(rs.getLong("id"));
+                modelo.setEmpresa(rs.getString("empresa"));
+                modelo.setMatricula(rs.getString("matricula"));
+                modelo.setCodBeneficiario(rs.getString("codBeneficiario"));
+                modelo.setDireitoAMSCredenciamento(rs.getString("direitoAMSCredenciamento"));
+                modelo.setDataValidadeCredenciado(rs.getString("dataValidadeCredenciado"));
+                modelo.setDireitoAmsReembolso(rs.getString("direitoAmsReembolso"));
+                modelo.setDataValidadeReembolso(rs.getString("dataValidadeReembolso"));
+                modelo.setDataDeAtualizacao(rs.getString("dataDeAtualizacao"));
+                modelo.setNomeBeneficiarioAbreviado(rs.getString("nomeBeneficiarioAbreviado"));
+                modelo.setCodigoCR(rs.getString("codigoCR"));
+                modelo.setOrgaoPessoal(rs.getString("orgaoPessoal"));
+                modelo.setVinculo(rs.getString("vinculo"));
+                modelo.setPlano(rs.getString("plano"));
+                modelo.setFaixaNivel(rs.getString("faixaNivel"));
+                modelo.setDataNascimento(rs.getString("dataNascimento"));
+                modelo.setDireitoAbaterIR(rs.getString("direitoAbaterIR"));
+                modelo.setNucleoDaAms(rs.getString("nucleoDaAms"));
+                modelo.setAgenciaBancaria(rs.getString("agenciaBancaria"));
+                modelo.setBanco(rs.getString("banco"));
+                modelo.setContaCorrente(rs.getString("contaCorrente"));
+                modelo.setDataAdmissao(rs.getString("dataAdmissao"));
+                modelo.setGrauParentesco(rs.getString("grauParentesco"));
+                modelo.setFinanceira(rs.getString("financeira"));
+                modelo.setContratoTrabalho(rs.getString("contratoTrabalho"));
+                modelo.setSexo(rs.getString("sexo"));
+                modelo.setEmpresaAtualizador(rs.getString("empresaAtualizador"));
+                modelo.setMatriculaAtulizador(rs.getString("matriculaAtualizador"));
+                modelo.setTipoBeneficiario(rs.getString("tipoBeneficiario"));
+                modelo.setCodigoDireitoPasa(rs.getString("codigoDireitoPasa"));
+                modelo.setGrauEscolaridade(rs.getString("grauEscolaridade"));
+                modelo.setIndicadorConclusao(rs.getString("indicadorConclusao"));
+                modelo.setDataFalecimento(rs.getString("dataFalecimento"));
+                modelo.setMatriculaPasa(rs.getString("matriculaPasa"));
+                modelo.setNomeDaMae(rs.getString("nomeDaMae"));
+                modelo.setPis(rs.getString("pis"));
+                modelo.setCpf(rs.getString("cpf"));
+                modelo.setEmpresaOrigem(rs.getString("empresaOrigem"));
+                modelo.setMatriculaOrigem(rs.getString("matriculaOrigem"));
+                modelo.setEmpresaPeople(rs.getString("empresaPeople"));
+                modelo.setMatriculaPeople(rs.getString("matriculaPeople"));
+                modelo.setUnidadeDeControle(rs.getString("unidadeDeControle"));
+                modelo.setCentroDeCusto(rs.getString("centroDeCusto"));
+                modelo.setMatriculaParticipante(rs.getString("matriculaParticipante"));
+                modelo.setMatriculaRepresentanteLegal(rs.getString("matriculaRepresentanteLegal"));
+                modelo.setCategoriaPASA(rs.getString("categoriaPASA"));
+                modelo.setDataAdesao(rs.getString("dataAdesao"));
+                modelo.setDataInicioCarencia(rs.getString("dataInicioCarencia"));
+                modelo.setDataFimCarencia(rs.getString("dataFimCarencia"));
+                modelo.setNomeCompleto(rs.getString("nomeCompleto"));
+                modelo.setDiasDeCarencia(rs.getString("diasDeCarencia"));
+                modelo.setCodigoNacionalDeSaude(rs.getString("codigoNacionalDeSaude"));
+                modelo.setDeclaracaoNascidoVivo(rs.getString("declaracaoNascidoVivo"));
+            }
+        } catch (SQLException ex) {
+            System.err.println(this.getClass().getName() + ":\n" + ex);
+        } finally {
+            if (null != rs) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                }
+            }
+            if (null != stmt) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                }
+            }
+            if (null != conn) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                }
+            }
+        }
+        return modelo;
+    }
+
+    public TempBenPASA get(String matricula) {
+        TempBenPASA modelo = new TempBenPASA();
+        String sql = "select * from TB_TEMP_BEN_PASA where matricula = '" + matricula + "'";
+
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                modelo.setId(rs.getLong("id"));
+                modelo.setEmpresa(rs.getString("empresa"));
+                modelo.setMatricula(rs.getString("matricula"));
+                modelo.setCodBeneficiario(rs.getString("codBeneficiario"));
+                modelo.setDireitoAMSCredenciamento(rs.getString("direitoAMSCredenciamento"));
+                modelo.setDataValidadeCredenciado(rs.getString("dataValidadeCredenciado"));
+                modelo.setDireitoAmsReembolso(rs.getString("direitoAmsReembolso"));
+                modelo.setDataValidadeReembolso(rs.getString("dataValidadeReembolso"));
+                modelo.setDataDeAtualizacao(rs.getString("dataDeAtualizacao"));
+                modelo.setNomeBeneficiarioAbreviado(rs.getString("nomeBeneficiarioAbreviado"));
+                modelo.setCodigoCR(rs.getString("codigoCR"));
+                modelo.setOrgaoPessoal(rs.getString("orgaoPessoal"));
+                modelo.setVinculo(rs.getString("vinculo"));
+                modelo.setPlano(rs.getString("plano"));
+                modelo.setFaixaNivel(rs.getString("faixaNivel"));
+                modelo.setDataNascimento(rs.getString("dataNascimento"));
+                modelo.setDireitoAbaterIR(rs.getString("direitoAbaterIR"));
+                modelo.setNucleoDaAms(rs.getString("nucleoDaAms"));
+                modelo.setAgenciaBancaria(rs.getString("agenciaBancaria"));
+                modelo.setBanco(rs.getString("banco"));
+                modelo.setContaCorrente(rs.getString("contaCorrente"));
+                modelo.setDataAdmissao(rs.getString("dataAdmissao"));
+                modelo.setGrauParentesco(rs.getString("grauParentesco"));
+                modelo.setFinanceira(rs.getString("financeira"));
+                modelo.setContratoTrabalho(rs.getString("contratoTrabalho"));
+                modelo.setSexo(rs.getString("sexo"));
+                modelo.setEmpresaAtualizador(rs.getString("empresaAtualizador"));
+                modelo.setMatriculaAtulizador(rs.getString("matriculaAtualizador"));
+                modelo.setTipoBeneficiario(rs.getString("tipoBeneficiario"));
+                modelo.setCodigoDireitoPasa(rs.getString("codigoDireitoPasa"));
+                modelo.setGrauEscolaridade(rs.getString("grauEscolaridade"));
+                modelo.setIndicadorConclusao(rs.getString("indicadorConclusao"));
+                modelo.setDataFalecimento(rs.getString("dataFalecimento"));
+                modelo.setMatriculaPasa(rs.getString("matriculaPasa"));
+                modelo.setNomeDaMae(rs.getString("nomeDaMae"));
+                modelo.setPis(rs.getString("pis"));
+                modelo.setCpf(rs.getString("cpf"));
+                modelo.setEmpresaOrigem(rs.getString("empresaOrigem"));
+                modelo.setMatriculaOrigem(rs.getString("matriculaOrigem"));
+                modelo.setEmpresaPeople(rs.getString("empresaPeople"));
+                modelo.setMatriculaPeople(rs.getString("matriculaPeople"));
+                modelo.setUnidadeDeControle(rs.getString("unidadeDeControle"));
+                modelo.setCentroDeCusto(rs.getString("centroDeCusto"));
+                modelo.setMatriculaParticipante(rs.getString("matriculaParticipante"));
+                modelo.setMatriculaRepresentanteLegal(rs.getString("matriculaRepresentanteLegal"));
+                modelo.setCategoriaPASA(rs.getString("categoriaPASA"));
+                modelo.setDataAdesao(rs.getString("dataAdesao"));
+                modelo.setDataInicioCarencia(rs.getString("dataInicioCarencia"));
+                modelo.setDataFimCarencia(rs.getString("dataFimCarencia"));
+                modelo.setNomeCompleto(rs.getString("nomeCompleto"));
+                modelo.setDiasDeCarencia(rs.getString("diasDeCarencia"));
+                modelo.setCodigoNacionalDeSaude(rs.getString("codigoNacionalDeSaude"));
+                modelo.setDeclaracaoNascidoVivo(rs.getString("declaracaoNascidoVivo"));
+            }
+        } catch (SQLException ex) {
+            System.err.println(this.getClass().getName() + ":\n" + ex);
+        } finally {
+            if (null != rs) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                }
+            }
+            if (null != stmt) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                }
+            }
+            if (null != conn) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                }
+            }
+        }
+        return modelo;
+    }
+
+    public TempBenPASA get(String empresa, String matricula) {
+        TempBenPASA modelo = new TempBenPASA();
+        String sql = "select * from TB_TEMP_BEN_PASA where empresa = '" + empresa
+                + "' and matricula = '" + matricula + "'";
+
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                modelo.setId(rs.getLong("id"));
+                modelo.setEmpresa(rs.getString("empresa"));
+                modelo.setMatricula(rs.getString("matricula"));
+                modelo.setCodBeneficiario(rs.getString("codBeneficiario"));
+                modelo.setDireitoAMSCredenciamento(rs.getString("direitoAMSCredenciamento"));
+                modelo.setDataValidadeCredenciado(rs.getString("dataValidadeCredenciado"));
+                modelo.setDireitoAmsReembolso(rs.getString("direitoAmsReembolso"));
+                modelo.setDataValidadeReembolso(rs.getString("dataValidadeReembolso"));
+                modelo.setDataDeAtualizacao(rs.getString("dataDeAtualizacao"));
+                modelo.setNomeBeneficiarioAbreviado(rs.getString("nomeBeneficiarioAbreviado"));
+                modelo.setCodigoCR(rs.getString("codigoCR"));
+                modelo.setOrgaoPessoal(rs.getString("orgaoPessoal"));
+                modelo.setVinculo(rs.getString("vinculo"));
+                modelo.setPlano(rs.getString("plano"));
+                modelo.setFaixaNivel(rs.getString("faixaNivel"));
+                modelo.setDataNascimento(rs.getString("dataNascimento"));
+                modelo.setDireitoAbaterIR(rs.getString("direitoAbaterIR"));
+                modelo.setNucleoDaAms(rs.getString("nucleoDaAms"));
+                modelo.setAgenciaBancaria(rs.getString("agenciaBancaria"));
+                modelo.setBanco(rs.getString("banco"));
+                modelo.setContaCorrente(rs.getString("contaCorrente"));
+                modelo.setDataAdmissao(rs.getString("dataAdmissao"));
+                modelo.setGrauParentesco(rs.getString("grauParentesco"));
+                modelo.setFinanceira(rs.getString("financeira"));
+                modelo.setContratoTrabalho(rs.getString("contratoTrabalho"));
+                modelo.setSexo(rs.getString("sexo"));
+                modelo.setEmpresaAtualizador(rs.getString("empresaAtualizador"));
+                modelo.setMatriculaAtulizador(rs.getString("matriculaAtualizador"));
+                modelo.setTipoBeneficiario(rs.getString("tipoBeneficiario"));
+                modelo.setCodigoDireitoPasa(rs.getString("codigoDireitoPasa"));
+                modelo.setGrauEscolaridade(rs.getString("grauEscolaridade"));
+                modelo.setIndicadorConclusao(rs.getString("indicadorConclusao"));
+                modelo.setDataFalecimento(rs.getString("dataFalecimento"));
+                modelo.setMatriculaPasa(rs.getString("matriculaPasa"));
+                modelo.setNomeDaMae(rs.getString("nomeDaMae"));
+                modelo.setPis(rs.getString("pis"));
+                modelo.setCpf(rs.getString("cpf"));
+                modelo.setEmpresaOrigem(rs.getString("empresaOrigem"));
+                modelo.setMatriculaOrigem(rs.getString("matriculaOrigem"));
+                modelo.setEmpresaPeople(rs.getString("empresaPeople"));
+                modelo.setMatriculaPeople(rs.getString("matriculaPeople"));
+                modelo.setUnidadeDeControle(rs.getString("unidadeDeControle"));
+                modelo.setCentroDeCusto(rs.getString("centroDeCusto"));
+                modelo.setMatriculaParticipante(rs.getString("matriculaParticipante"));
+                modelo.setMatriculaRepresentanteLegal(rs.getString("matriculaRepresentanteLegal"));
+                modelo.setCategoriaPASA(rs.getString("categoriaPASA"));
+                modelo.setDataAdesao(rs.getString("dataAdesao"));
+                modelo.setDataInicioCarencia(rs.getString("dataInicioCarencia"));
+                modelo.setDataFimCarencia(rs.getString("dataFimCarencia"));
+                modelo.setNomeCompleto(rs.getString("nomeCompleto"));
+                modelo.setDiasDeCarencia(rs.getString("diasDeCarencia"));
+                modelo.setCodigoNacionalDeSaude(rs.getString("codigoNacionalDeSaude"));
+                modelo.setDeclaracaoNascidoVivo(rs.getString("declaracaoNascidoVivo"));
+            }
+        } catch (SQLException ex) {
+            System.err.println(this.getClass().getName() + ":\n" + ex);
+        } finally {
+            if (null != rs) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                }
+            }
+            if (null != stmt) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                }
+            }
+            if (null != conn) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                }
+            }
+        }
+        return modelo;
+    }
+
+    public TempBenPASA get(String empresa, String matricula, String codBenef) {
+        TempBenPASA modelo = new TempBenPASA();
+        String sql = "select * from TB_TEMP_BEN_PASA where empresa = '" + empresa
+                + "' and matricula = '" + matricula + "' and cod_beneficiario = '" + codBenef + "'";
 
         Statement stmt = null;
         ResultSet rs = null;
@@ -93,25 +372,120 @@ public class TempBenPasaDAOImpl {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    System.err.println(ex);
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
                 }
             }
             if (null != stmt) {
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    System.err.println(ex);
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
                 }
             }
             if (null != conn) {
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    System.err.println(ex);
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
                 }
             }
         }
         return modelo;
+    }
+
+    public List<TempBenPASA> getUsuarios(String empresa, String matricula) {
+        List<TempBenPASA> modelos = new ArrayList<>();
+        String sql = "select * from TB_TEMP_BEN_PASA where empresa = '" + empresa
+                + "' and matricula = '" + matricula + "' and cod_beneficiario <> '00'";
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                TempBenPASA modelo = new TempBenPASA();
+                modelo.setId(rs.getLong("id"));
+                modelo.setEmpresa(rs.getString("empresa"));
+                modelo.setMatricula(rs.getString("matricula"));
+                modelo.setCodBeneficiario(rs.getString("codBeneficiario"));
+                modelo.setDireitoAMSCredenciamento(rs.getString("direitoAMSCredenciamento"));
+                modelo.setDataValidadeCredenciado(rs.getString("dataValidadeCredenciado"));
+                modelo.setDireitoAmsReembolso(rs.getString("direitoAmsReembolso"));
+                modelo.setDataValidadeReembolso(rs.getString("dataValidadeReembolso"));
+                modelo.setDataDeAtualizacao(rs.getString("dataDeAtualizacao"));
+                modelo.setNomeBeneficiarioAbreviado(rs.getString("nomeBeneficiarioAbreviado"));
+                modelo.setCodigoCR(rs.getString("codigoCR"));
+                modelo.setOrgaoPessoal(rs.getString("orgaoPessoal"));
+                modelo.setVinculo(rs.getString("vinculo"));
+                modelo.setPlano(rs.getString("plano"));
+                modelo.setFaixaNivel(rs.getString("faixaNivel"));
+                modelo.setDataNascimento(rs.getString("dataNascimento"));
+                modelo.setDireitoAbaterIR(rs.getString("direitoAbaterIR"));
+                modelo.setNucleoDaAms(rs.getString("nucleoDaAms"));
+                modelo.setAgenciaBancaria(rs.getString("agenciaBancaria"));
+                modelo.setBanco(rs.getString("banco"));
+                modelo.setContaCorrente(rs.getString("contaCorrente"));
+                modelo.setDataAdmissao(rs.getString("dataAdmissao"));
+                modelo.setGrauParentesco(rs.getString("grauParentesco"));
+                modelo.setFinanceira(rs.getString("financeira"));
+                modelo.setContratoTrabalho(rs.getString("contratoTrabalho"));
+                modelo.setSexo(rs.getString("sexo"));
+                modelo.setEmpresaAtualizador(rs.getString("empresaAtualizador"));
+                modelo.setMatriculaAtulizador(rs.getString("matriculaAtualizador"));
+                modelo.setTipoBeneficiario(rs.getString("tipoBeneficiario"));
+                modelo.setCodigoDireitoPasa(rs.getString("codigoDireitoPasa"));
+                modelo.setGrauEscolaridade(rs.getString("grauEscolaridade"));
+                modelo.setIndicadorConclusao(rs.getString("indicadorConclusao"));
+                modelo.setDataFalecimento(rs.getString("dataFalecimento"));
+                modelo.setMatriculaPasa(rs.getString("matriculaPasa"));
+                modelo.setNomeDaMae(rs.getString("nomeDaMae"));
+                modelo.setPis(rs.getString("pis"));
+                modelo.setCpf(rs.getString("cpf"));
+                modelo.setEmpresaOrigem(rs.getString("empresaOrigem"));
+                modelo.setMatriculaOrigem(rs.getString("matriculaOrigem"));
+                modelo.setEmpresaPeople(rs.getString("empresaPeople"));
+                modelo.setMatriculaPeople(rs.getString("matriculaPeople"));
+                modelo.setUnidadeDeControle(rs.getString("unidadeDeControle"));
+                modelo.setCentroDeCusto(rs.getString("centroDeCusto"));
+                modelo.setMatriculaParticipante(rs.getString("matriculaParticipante"));
+                modelo.setMatriculaRepresentanteLegal(rs.getString("matriculaRepresentanteLegal"));
+                modelo.setCategoriaPASA(rs.getString("categoriaPASA"));
+                modelo.setDataAdesao(rs.getString("dataAdesao"));
+                modelo.setDataInicioCarencia(rs.getString("dataInicioCarencia"));
+                modelo.setDataFimCarencia(rs.getString("dataFimCarencia"));
+                modelo.setNomeCompleto(rs.getString("nomeCompleto"));
+                modelo.setDiasDeCarencia(rs.getString("diasDeCarencia"));
+                modelo.setCodigoNacionalDeSaude(rs.getString("codigoNacionalDeSaude"));
+                modelo.setDeclaracaoNascidoVivo(rs.getString("declaracaoNascidoVivo"));
+
+                modelos.add(modelo);//ADD NA LISTA
+            }
+        } catch (SQLException ex) {
+            System.err.println(this.getClass().getName() + ":\n" + ex);
+        } finally {
+            if (null != rs) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                }
+            }
+            if (null != stmt) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                }
+            }
+            if (null != conn) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                }
+            }
+        }
+        return modelos;
     }
 
     public void save(TempBenPASA modelo) {
@@ -228,22 +602,24 @@ public class TempBenPasaDAOImpl {
 
             ps.executeUpdate();
         } catch (SQLException ex) {
-            System.err.println(ex);
+            System.err.println(this.getClass().getName() + ":\n" + ex);
         } finally {
             try {
                 if (null != ps) {
                     ps.close();
                 }
+                conn.close();
             } catch (SQLException ex) {
-                System.err.println(ex);
+                System.err.println(this.getClass().getName() + ":\n" + ex);
             }
+
         }
     }
-    
-     public Long count(){
+
+    public Long count() {
         Long c = null;
         String sql = "SELECT COUNT(ID) AS TOTAL FROM TB_TEMP_BEN_PASA";
-        
+
         Statement stmt = null;
         ResultSet rs = null;
         try {
@@ -253,27 +629,27 @@ public class TempBenPasaDAOImpl {
                 c = rs.getLong("TOTAL");
             }
         } catch (SQLException ex) {
-            System.err.println(ex);
+            System.err.println(this.getClass().getName() + ":\n" + ex);
         } finally {
             if (null != rs) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    System.err.println(ex);
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
                 }
             }
             if (null != stmt) {
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    System.err.println(ex);
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
                 }
             }
             if (null != conn) {
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    System.err.println(ex);
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
                 }
             }
         }

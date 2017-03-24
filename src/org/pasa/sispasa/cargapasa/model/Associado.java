@@ -26,8 +26,8 @@ public class Associado {
     private Date dataDesligamentoGrupo;
     private Date dataDesligamentoAssociacao;
     private Date dataReadmissao;
-    private Long idUsuario;
     private Date dataUltimaAlteracao;
+    private Long idUsuario;
     private Funcionario funcionario;
     private Participante participante;
     private Associado associadoOrigem;

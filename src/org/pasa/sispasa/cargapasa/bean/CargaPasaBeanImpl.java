@@ -3,6 +3,8 @@ package org.pasa.sispasa.cargapasa.bean;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import org.pasa.sispasa.cargapasa.dao.TempBenPasaDAOImpl;
+import org.pasa.sispasa.cargapasa.load.CargaMapeiaEntidadesThread;
 import org.pasa.sispasa.cargapasa.threads.ThreadLerBenPasa;
 import org.pasa.sispasa.cargapasa.threads.ThreadLerEndPasa;
 import org.pasa.sispasa.cargapasa.util.ArquivoUtil;
@@ -13,15 +15,18 @@ import org.pasa.sispasa.cargapasa.util.Sistema;
  *
  * @author Hudson Schumaker
  */
-public class CargaPasa {
+public class CargaPasaBeanImpl {
 
-    public CargaPasa() {
+    private final TempBenPasaDAOImpl daoBen;
+
+    public CargaPasaBeanImpl() {
+        this.daoBen = new TempBenPasaDAOImpl();
     }
 
     public void inicio() {
-        readBenFile();
-        readEndFile();
-        mapear();
+        this.readBenFile();
+        this.readEndFile();
+        this.mapearEntidades();
     }
 
     private void readBenFile() {
@@ -43,9 +48,8 @@ public class CargaPasa {
         } catch (IOException ex) {
             System.err.println(this.getClass().getName() + "\n" + ex);
         }
-
     }
-    
+
     private void readEndFile() {
         try {
             ExecutorService executor = Executors.newFixedThreadPool(Sistema.getNumberProcessors());
@@ -68,7 +72,36 @@ public class CargaPasa {
         }
     }
 
-    private void mapear() {
-
+    private void mapearEntidades() {
+        ExecutorService executor = Executors.newFixedThreadPool(Sistema.getNumberProcessors());
+        long qtdRegistros = daoBen.count();
+        if (qtdRegistros > 2001) {
+            long lote = ArquivoUtil.getNumeroLinhasLote(qtdRegistros);
+            long ini = 1;
+            long fim = lote;
+            try {
+                for (int k = 0; k < Sistema.getNumberProcessors(); k++) {
+                    if ((Sistema.getNumberProcessors() - k) == 1) {
+                        fim = fim + ArquivoUtil.getNumeroLinhasResto(qtdRegistros);
+                    }
+                    executor.execute(new CargaMapeiaEntidadesThread(ini, fim, " Thread_" + (k + 1)));
+                    ini = fim;
+                    fim = fim + lote;
+                }
+                executor.shutdown();
+                while (!executor.isTerminated()) {
+                }
+            } catch (Exception ex) {
+                System.err.println(this.getClass().getName() + "\n" + ex);
+            }
+        } else {
+            long ini = 1;
+            long fim = qtdRegistros;
+            try {
+                executor.execute(new CargaMapeiaEntidadesThread(ini, fim, " Thread"));
+            } catch (Exception ex) {
+                System.err.println(this.getClass().getName() + "\n" + ex);
+            }
+        }
     }
 }

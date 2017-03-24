@@ -1,7 +1,9 @@
 package org.pasa.sispasa.cargapasa.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.pasa.sispasa.cargapasa.util.CargaPasaCommon;
 import org.pasa.sispasa.cargapasa.util.DateUtil;
 
 /**
@@ -37,16 +39,26 @@ public class Participante {
     private List<Long> documentos;
 
     public Participante() {
-        this.indAtivo = 1;
-        this.idUsuario = 1L;
+        this.indAtivo = CargaPasaCommon.ATIVO;
+        this.idUsuario = CargaPasaCommon.USER_CARGA;
+        this.telefones = new ArrayList<>();
+        this.documentos = new ArrayList<>();
         this.dataUltimaAtualizacao = DateUtil.obterDataAtual();
     }
 
     public Participante(Long id) {
         this.id = id;
-        this.indAtivo = 1;
-        this.idUsuario = 1L;
+        this.indAtivo = CargaPasaCommon.ATIVO;
+        this.idUsuario = CargaPasaCommon.USER_CARGA;
         this.dataUltimaAtualizacao = DateUtil.obterDataAtual();
+    }
+
+    public void addTelefone(Long id) {
+        telefones.add(id);
+    }
+
+    public void addDocumento(Long id) {
+        documentos.add(id);
     }
 
     public Long getId() {
