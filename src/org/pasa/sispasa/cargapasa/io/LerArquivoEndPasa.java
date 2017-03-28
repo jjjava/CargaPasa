@@ -66,6 +66,7 @@ public class LerArquivoEndPasa {
         } catch (IOException ex) {
             System.err.println(this.getClass().getName() + "\n" + ex);
         } finally {
+            //modeloBean.closeConnection();
         }
     }
 
@@ -95,13 +96,13 @@ public class LerArquivoEndPasa {
             modelo.setBairro(line.substring(campo.getInicioCampo(), campo.getFimCampo()).trim());
             campo = (PosicaoCampo) mapa.get(MapaCampos.CIDADE);
             modelo.setCidade(line.substring(campo.getInicioCampo(), campo.getFimCampo()).trim());
-          
+
             campo = (PosicaoCampo) mapa.get(MapaCampos.UF);
             modelo.setUf(line.substring(campo.getInicioCampo(), campo.getFimCampo()).trim());
-            
+
             campo = (PosicaoCampo) mapa.get(MapaCampos.CEP);
             modelo.setCep(line.substring(campo.getInicioCampo(), campo.getFimCampo()).trim());
-            
+
             campo = (PosicaoCampo) mapa.get(MapaCampos.EMAIL);
             modelo.setEmail(line.substring(campo.getInicioCampo(), campo.getFimCampo()).trim());
 

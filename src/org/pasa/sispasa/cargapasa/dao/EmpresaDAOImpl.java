@@ -21,8 +21,8 @@ public class EmpresaDAOImpl {
 
     public Empresa get(Long id) {
         Empresa empresa = new Empresa();
-        String sql = "select id_empresa,cd_empresa_vale from emprea where id_empresa = "+id;
-        
+        String sql = "select id_empresa,cd_empresa_vale from emprea where id_empresa = " + id;
+
         Statement stmt = null;
         ResultSet rs = null;
         try {
@@ -59,11 +59,11 @@ public class EmpresaDAOImpl {
         }
         return empresa;
     }
-    
-    public Empresa get(String cod){
+
+    public Empresa get(String cod) {
         Empresa empresa = new Empresa();
-        String sql = "select id_empresa,cd_empresa_vale from emprea where cd_empresa_vale = '"+cod+"'";
-        
+        String sql = "select id_empresa,cd_empresa_vale from emprea where cd_empresa_vale = '" + cod + "'";
+
         Statement stmt = null;
         ResultSet rs = null;
         try {
@@ -99,5 +99,45 @@ public class EmpresaDAOImpl {
             }
         }
         return empresa;
+    }
+
+    public Long getByCdVale(String cod) {
+        Long id = null;
+        String sql = "select id_empresa,cd_empresa_vale from emprea where cd_empresa_vale = '" + cod + "'";
+
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                id = rs.getLong("id_empresa");
+            }
+        } catch (SQLException ex) {
+            System.err.println(this.getClass().getName() + "\n" + ex);
+        } finally {
+            if (null != rs) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + "\n" + ex);
+                }
+            }
+            if (null != stmt) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + "\n" + ex);
+                }
+            }
+            if (null != conn) {
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + "\n" + ex);
+                }
+            }
+        }
+        return id;
     }
 }

@@ -1,7 +1,6 @@
 package org.pasa.sispasa.cargapasa.load;
 
 import org.pasa.sispasa.cargapasa.dao.TempBenPasaDAOImpl;
-import org.pasa.sispasa.cargapasa.model.Associado;
 import org.pasa.sispasa.cargapasa.util.CargaPasaCommon;
 
 /**

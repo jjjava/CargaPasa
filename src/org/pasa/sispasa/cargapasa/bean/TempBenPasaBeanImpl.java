@@ -19,6 +19,10 @@ public class TempBenPasaBeanImpl {
     public void save(TempBenPASA modelo) {
         this.dao.save(modelo);
     }
+    
+    public void closeConnection(){
+        this.dao.closeConnection();
+    }
 
     public void save(List<TempBenPASA> modelo) {
         for (TempBenPASA m : modelo) {

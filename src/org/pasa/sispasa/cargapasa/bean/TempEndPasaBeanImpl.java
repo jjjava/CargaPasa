@@ -15,6 +15,10 @@ public class TempEndPasaBeanImpl {
         dao = new TempEndPasaDAOImpl();
     }
     
+    public void closeConnection(){
+        this.dao.closeConnection();
+    }
+    
     public void save(TempEndPASA modelo){
         dao.save(modelo);
     }

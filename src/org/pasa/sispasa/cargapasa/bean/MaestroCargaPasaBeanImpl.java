@@ -15,11 +15,11 @@ import org.pasa.sispasa.cargapasa.util.Sistema;
  *
  * @author Hudson Schumaker
  */
-public class CargaPasaBeanImpl {
+public class MaestroCargaPasaBeanImpl {
 
     private final TempBenPasaDAOImpl daoBen;
 
-    public CargaPasaBeanImpl() {
+    public MaestroCargaPasaBeanImpl() {
         this.daoBen = new TempBenPasaDAOImpl();
     }
 
@@ -68,7 +68,6 @@ public class CargaPasaBeanImpl {
             }
         } catch (IOException ex) {
             System.err.println(this.getClass().getName() + "\n" + ex);
-
         }
     }
 

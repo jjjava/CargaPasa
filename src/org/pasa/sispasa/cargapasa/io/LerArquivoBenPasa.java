@@ -67,6 +67,7 @@ public class LerArquivoBenPasa {
         } catch (IOException ex) {
             System.err.println(this.getClass().getName() + "\n" + ex);
         } finally {
+           //modeloBean.closeConnection();
         }
     }
 
@@ -171,14 +172,14 @@ public class LerArquivoBenPasa {
             // CATEGOARIA
             campo = (PosicaoCampo) mapa.get(MapaCampos.CATEGORIA_PASA);
             modelo.setCategoriaPASA(line.substring(campo.getInicioCampo(), campo.getFimCampo()).trim());
-             
+
             campo = (PosicaoCampo) mapa.get(MapaCampos.DATA_ADESAO);
             modelo.setDataAdesao(line.substring(campo.getInicioCampo(), campo.getFimCampo()).trim());
             campo = (PosicaoCampo) mapa.get(MapaCampos.DATA_INICIO_CARENCIA);
-            modelo.setDataInicioCarencia(line.substring(campo.getInicioCampo(), campo.getFimCampo()).trim());            
+            modelo.setDataInicioCarencia(line.substring(campo.getInicioCampo(), campo.getFimCampo()).trim());
             campo = (PosicaoCampo) mapa.get(MapaCampos.NOME_BENEFICIARIO);
             modelo.setNomeCompleto(line.substring(campo.getInicioCampo(), campo.getFimCampo()).trim());
-            
+
             campo = (PosicaoCampo) mapa.get(MapaCampos.DIAS_DE_CARENCIA);
             modelo.setDiasDeCarencia(line.substring(campo.getInicioCampo(), campo.getFimCampo()).trim());
             campo = (PosicaoCampo) mapa.get(MapaCampos.CODIGO_NACIONAL_SAUDE);

@@ -28,18 +28,17 @@ public class Associado {
     private Date dataReadmissao;
     private Date dataUltimaAlteracao;
     private Long idUsuario;
-    private Funcionario funcionario;
-    private Participante participante;
+    private Long idFuncionario;
+    private Long idTaxaAssociado;
+    private Long idSituacaoAssociado;
+    private Long idParticipante;
     private Associado associadoOrigem;
     private MotivoDesligamento motivoDesligamentoGrupo;
     private MotivoDesligamento motivoDesligamentoAssociado;
-    private TaxaAssociado taxaAssociado;
-    private SituacaoAssociado situacaoAssociado;
     private ResponsavelLegal responsavelLegal;
 
     public Associado() {
         this.idUsuario = CargaPasaCommon.USER_CARGA;
-        this.dataUltimaAlteracao = DateUtil.obterDataAtual();
     }
 
     public Associado(Long id) {
@@ -168,22 +167,22 @@ public class Associado {
         this.dataUltimaAlteracao = dataUltimaAlteracao;
     }
 
-    public Funcionario getFuncionario() {
-        return funcionario;
+    public Long getIdFuncionario() {
+        return idFuncionario;
     }
 
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
+    public void setIdFuncionario(Long idFuncionario) {
+        this.idFuncionario = idFuncionario;
     }
 
-    public Participante getParticipante() {
-        return participante;
+    public Long getIdParticipante() {
+        return idParticipante;
     }
 
-    public void setParticipante(Participante participante) {
-        this.participante = participante;
+    public void setIdParticipante(Long idParticipante) {
+        this.idParticipante = idParticipante;
     }
-
+    
     public Associado getAssociadoOrigem() {
         return associadoOrigem;
     }
@@ -208,22 +207,22 @@ public class Associado {
         this.motivoDesligamentoAssociado = motivoDesligamentoAssociado;
     }
 
-    public TaxaAssociado getTaxaAssociado() {
-        return taxaAssociado;
+    public Long getIdTaxaAssociado() {
+        return idTaxaAssociado;
     }
 
-    public void setTaxaAssociado(TaxaAssociado taxaAssociado) {
-        this.taxaAssociado = taxaAssociado;
+    public void setIdTaxaAssociado(Long idTaxaAssociado) {
+        this.idTaxaAssociado = idTaxaAssociado;
     }
 
-    public SituacaoAssociado getSituacaoAssociado() {
-        return situacaoAssociado;
+    public Long getIdSituacaoAssociado() {
+        return idSituacaoAssociado;
     }
 
-    public void setSituacaoAssociado(SituacaoAssociado situacaoAssociado) {
-        this.situacaoAssociado = situacaoAssociado;
+    public void setIdSituacaoAssociado(Long idSituacaoAssociado) {
+        this.idSituacaoAssociado = idSituacaoAssociado;
     }
-
+    
     public ResponsavelLegal getResponsavelLegal() {
         return responsavelLegal;
     }

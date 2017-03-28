@@ -6,38 +6,36 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import org.pasa.sispasa.cargapasa.connection.SQLServerConnection;
-import org.pasa.sispasa.cargapasa.model.Documento;
+import org.pasa.sispasa.cargapasa.model.Telefone;
+import org.pasa.sispasa.cargapasa.util.CargaPasaCommon;
 
 /**
  *
  * @author Hudson Schumaker
  */
-public class DocumentoDAOImpl {
+public class TelefoneDAOImpl {
 
     private final Connection conn;
 
-    public DocumentoDAOImpl() {
+    public TelefoneDAOImpl() {
         this.conn = SQLServerConnection.getConnectionPipe();
     }
 
-    public Long save(Documento doc) {
+    public Long save(Telefone tel) {
         Long id = null;
         PreparedStatement ps = null;
+        String sql = "INSERT INTO TELEFONE ("
+                + "DT_ULT_ATULZ"
+                + ",ID_USUARIO"
+                + ",IND_ATIVO"
+                + ",NUMERO) VALUES(?,?,?,?)";
         try {
-            String sql = "INSERT INTO DOCUMENTO ("
-                    + "NUMERO,"
-                    + "ID_USUARIO,"
-                    + "IND_ATIVO,"
-                    + "DT_ULT_ATULIZ,"
-                    + "ID_TP_DOCUMENTO) VALUES (?,?,?,?,?)";
-
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            ps.setString(1, doc.getNumero());
-            ps.setLong(2, doc.getIdUsuario());
-            ps.setInt(3, doc.getIndAtivo());
-            ps.setDate(4, new java.sql.Date(doc.getDataUltimaAtualizacao().getTime()));
-            ps.setLong(5, doc.getTipoDocumento());
+            ps.setDate(1, new java.sql.Date(tel.getDataUltimaAtualizacao().getTime()));
+            ps.setLong(2, CargaPasaCommon.USER_CARGA);
+            ps.setLong(3, CargaPasaCommon.ATIVO);
+            ps.setString(4, tel.getNumeroTelefone());
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -46,8 +44,9 @@ public class DocumentoDAOImpl {
             }
             rs.close();
             ps.close();
+
         } catch (SQLException ex) {
-            System.err.println(this.getClass().getName() + ":\n" + ex);
+            System.err.println(this.getClass().getName() + "\n" + ex);
             return null;
         } finally {
             try {
@@ -59,15 +58,15 @@ public class DocumentoDAOImpl {
         return id;
     }
 
-    public void linkParticipanteDocumento(Long idParticipante, Long idDocumento) {
+    public void linkParticipanteTelefone(Long idParticipante, Long idTelefone) {
         PreparedStatement ps = null;
-        String sql = "INSERT INTO PARTICIPANTE_DOCUMENTO ("
+        String sql = "INSERT INTO PARTICIPANTE_TELEFONE ( "
                 + "ID_PARTICIPANTE"
-                + ",ID_DOCUMENTO) VALUES(?,?)";
+                + ",ID_TELEFONE) VALUES(?,?)";
         try {
             ps = conn.prepareStatement(sql);
             ps.setLong(1, idParticipante);
-            ps.setLong(2, idDocumento);
+            ps.setLong(2, idTelefone);
             ps.close();
         } catch (SQLException ex) {
             System.err.println(this.getClass().getName() + "\n" + ex);

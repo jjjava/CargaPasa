@@ -608,11 +608,9 @@ public class TempBenPasaDAOImpl {
                 if (null != ps) {
                     ps.close();
                 }
-                conn.close();
             } catch (SQLException ex) {
                 System.err.println(this.getClass().getName() + ":\n" + ex);
             }
-
         }
     }
 
@@ -654,5 +652,13 @@ public class TempBenPasaDAOImpl {
             }
         }
         return c;
+    }
+
+    public void closeConnection() {
+        try {
+            this.conn.close();
+        } catch (SQLException ex) {
+            System.err.println(this.getClass().getName() + ":\n" + ex);
+        }
     }
 }
