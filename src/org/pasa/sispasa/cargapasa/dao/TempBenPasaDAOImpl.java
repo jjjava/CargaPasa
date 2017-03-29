@@ -488,6 +488,10 @@ public class TempBenPasaDAOImpl {
         return modelos;
     }
 
+    public Integer countUsuarios(String empresa, String matricula) {
+        return getUsuarios(empresa, matricula).size();
+    }
+
     public void save(TempBenPASA modelo) {
         PreparedStatement ps = null;
         try {

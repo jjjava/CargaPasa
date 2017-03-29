@@ -27,12 +27,13 @@ public class AssociadoDAOImpl {
                     + ",ID_FUNCIONARIO"
                     + ",ID_TAXA_ASSOCIADO"
                     + ",ID_SITUACAO_ASSOCIADO"
+                    + ",TP_ASSOCIADO"
                     + ",MATR_PASA"
                     + ",MATR_VALIA_PARTICIPANTE"
                     + ",MATR_VALIA_REPRESENTANTE"
                     + ",ID_USUARIO"
                     + ",DT_ULT_ATULZ"
-                    + ",DT_ADMISSAO_GRUPO) VALUES (?,?,?,?,?,?,?,?)";
+                    + ",DT_ADMISSAO_GRUPO) VALUES (?,?,?,?,?,?,?,?,?)";
 
             ps = conn.prepareStatement(sql);
 
@@ -40,12 +41,13 @@ public class AssociadoDAOImpl {
             ps.setLong(2, associado.getIdFuncionario());
             ps.setLong(3, associado.getIdTaxaAssociado());
             ps.setLong(4, associado.getIdSituacaoAssociado());
-            ps.setString(5, associado.getMatriculaPasa());
-            ps.setString(6, associado.getMatriculaValiaParticipante());
-            ps.setString(7, associado.getMatriculaValiaRepresentante());
-            ps.setLong(8, associado.getIdUsuario());
-            ps.setDate(9, new java.sql.Date(associado.getDataUltimaAlteracao().getTime()));
-            ps.setDate(10, new java.sql.Date(associado.getDataAdmissaoGrupo().getTime()));
+            ps.setLong(5, associado.getTipoAssociado());
+            ps.setString(6, associado.getMatriculaPasa());
+            ps.setString(7, associado.getMatriculaValiaParticipante());
+            ps.setString(8, associado.getMatriculaValiaRepresentante());
+            ps.setLong(9, associado.getIdUsuario());
+            ps.setDate(10, new java.sql.Date(associado.getDataUltimaAlteracao().getTime()));
+            ps.setDate(11, new java.sql.Date(associado.getDataAdmissaoGrupo().getTime()));
 
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.executeUpdate();

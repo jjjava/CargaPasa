@@ -19,7 +19,6 @@ public class Associado {
     private String matriculaValiaParticipante;
     private EnumTipoRespPagamento tipoRespPagamento;
     private EnumTipoAposentadoria tipoAposentadoria;
-    private EnumTipoAssociado tipoAssociado;
     private Date dataAssociacao;
     private Date dataAposentadoria;
     private Date dataAdmissaoGrupo;
@@ -32,6 +31,7 @@ public class Associado {
     private Long idTaxaAssociado;
     private Long idSituacaoAssociado;
     private Long idParticipante;
+    private Long tipoAssociado;
     private Associado associadoOrigem;
     private MotivoDesligamento motivoDesligamentoGrupo;
     private MotivoDesligamento motivoDesligamentoAssociado;
@@ -95,11 +95,11 @@ public class Associado {
         this.tipoAposentadoria = tipoAposentadoria;
     }
 
-    public EnumTipoAssociado getTipoAssociado() {
+    public Long getTipoAssociado() {
         return tipoAssociado;
     }
 
-    public void setTipoAssociado(EnumTipoAssociado tipoAssociado) {
+    public void setTipoAssociado(Long tipoAssociado) {
         this.tipoAssociado = tipoAssociado;
     }
 

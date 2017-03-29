@@ -13,11 +13,11 @@ import org.pasa.sispasa.cargapasa.model.UsuarioPlano;
  *
  * @author Hudson Schumaker
  */
-public class UsusarioPlanoDAOImpl {
+public class UsuarioPlanoDAOImpl {
 
     private final Connection conn;
 
-    public UsusarioPlanoDAOImpl() {
+    public UsuarioPlanoDAOImpl() {
         this.conn = SQLServerConnection.getConnectionPipe();
     }
 

@@ -25,7 +25,7 @@ public class AdesaoPlanoDAOImpl {
         PreparedStatement ps = null;
         try {
             String sql = "INSERT INTO ADESAO_PLANO ("
-                    + "ID_PLANO"
+                    + " ID_PLANO"
                     + ",ID_ASSOCIADO"
                     + ",ID_USUARIO"
                     + ",DT_INCLUSAO_SISTEMA) VALUES (?,?,?,?)";
