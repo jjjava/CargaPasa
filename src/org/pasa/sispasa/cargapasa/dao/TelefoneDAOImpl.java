@@ -49,11 +49,7 @@ public class TelefoneDAOImpl {
             System.err.println(this.getClass().getName() + "\n" + ex);
             return null;
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException ex) {
-                System.err.println(this.getClass().getName() + ":\n" + ex);
-            }
+           
         }
         return id;
     }
@@ -67,15 +63,12 @@ public class TelefoneDAOImpl {
             ps = conn.prepareStatement(sql);
             ps.setLong(1, idParticipante);
             ps.setLong(2, idTelefone);
+            ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
             System.err.println(this.getClass().getName() + "\n" + ex);
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException ex) {
-                System.err.println(this.getClass().getName() + ":\n" + ex);
-            }
+           
         }
     }
 }

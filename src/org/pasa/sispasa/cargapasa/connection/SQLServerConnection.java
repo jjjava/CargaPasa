@@ -21,7 +21,7 @@ public class SQLServerConnection {
             System.err.println(ex);
         }
         try {
-            conn = DriverManager.getConnection("jdbc:jtds:sqlserver://PASA-WKS-PA103:1433;instance=PASA;DatabaseName=sispasa;",
+            conn = DriverManager.getConnection("jdbc:jtds:sqlserver://PASA-WKS-PA103:1433;instance=PASA;DatabaseName=sispasaDB;",
                     "pasa", "pasa");
         } catch (SQLException ex) {
             System.err.println(ex);

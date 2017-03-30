@@ -46,13 +46,7 @@ public class PlanoDAOImpl {
                     System.err.println(this.getClass().getName() + "\n" + ex);
                 }
             }
-            if (null != conn) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + "\n" + ex);
-                }
-            }
+           
         }
         return id;
     }

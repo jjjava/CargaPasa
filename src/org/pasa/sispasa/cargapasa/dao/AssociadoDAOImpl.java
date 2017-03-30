@@ -24,7 +24,6 @@ public class AssociadoDAOImpl {
         try {
             String sql = "INSERT INTO ASSOCIADO ("
                     + " ID_PARTICIPANTE"
-                    + ",ID_FUNCIONARIO"
                     + ",ID_TAXA_ASSOCIADO"
                     + ",ID_SITUACAO_ASSOCIADO"
                     + ",TP_ASSOCIADO"
@@ -33,23 +32,26 @@ public class AssociadoDAOImpl {
                     + ",MATR_VALIA_REPRESENTANTE"
                     + ",ID_USUARIO"
                     + ",DT_ULT_ATULZ"
-                    + ",DT_ADMISSAO_GRUPO) VALUES (?,?,?,?,?,?,?,?,?)";
+                    + ",DT_ADMISSAO_GRUPO"
+                    + ",TP_RESPONSAVEL_PAGAMENTO"
+                    + ",CD_CATEGORIA_LEG) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
             ps = conn.prepareStatement(sql);
 
             ps.setLong(1, associado.getIdParticipante());
-            ps.setLong(2, associado.getIdFuncionario());
-            ps.setLong(3, associado.getIdTaxaAssociado());
-            ps.setLong(4, associado.getIdSituacaoAssociado());
-            ps.setLong(5, associado.getTipoAssociado());
-            ps.setString(6, associado.getMatriculaPasa());
-            ps.setString(7, associado.getMatriculaValiaParticipante());
-            ps.setString(8, associado.getMatriculaValiaRepresentante());
-            ps.setLong(9, associado.getIdUsuario());
-            ps.setDate(10, new java.sql.Date(associado.getDataUltimaAlteracao().getTime()));
-            ps.setDate(11, new java.sql.Date(associado.getDataAdmissaoGrupo().getTime()));
-
-            ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            //ps.setLong(2, associado.getIdFuncionario());
+            ps.setLong(2, associado.getIdTaxaAssociado());
+            ps.setLong(3, associado.getIdSituacaoAssociado());
+            ps.setString(4, associado.getTipoAssociado());
+            ps.setString(5, associado.getMatriculaPasa());
+            ps.setString(6, associado.getMatriculaValiaParticipante());
+            ps.setString(7, associado.getMatriculaValiaRepresentante());
+            ps.setLong(8, associado.getIdUsuario());
+            ps.setDate(9, new java.sql.Date(associado.getDataUltimaAlteracao().getTime()));
+            ps.setDate(10, new java.sql.Date(associado.getDataAdmissaoGrupo().getTime()));
+            ps.setString(11, associado.getTipoRespPagamento());
+            ps.setString(12, associado.getCategoria());
+            
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {

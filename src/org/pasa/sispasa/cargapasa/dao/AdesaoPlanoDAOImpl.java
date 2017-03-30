@@ -29,9 +29,10 @@ public class AdesaoPlanoDAOImpl {
                     + ",ID_ASSOCIADO"
                     + ",ID_USUARIO"
                     + ",DT_INCLUSAO_SISTEMA) VALUES (?,?,?,?)";
+            
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
-            ps.setLong(1, adesao.getIdAdesaoPlano());
+            ps.setLong(1, adesao.getIdPlano());
             ps.setLong(2, adesao.getIdAssociado());
             ps.setLong(3, adesao.getIdUsuario());
             ps.setDate(4, new java.sql.Date(adesao.getDataInclusaoSistema().getTime()));

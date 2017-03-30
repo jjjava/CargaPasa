@@ -2,7 +2,6 @@ package org.pasa.sispasa.cargapasa.model;
 
 import java.util.Date;
 import org.pasa.sispasa.cargapasa.enumeration.EnumTipoAposentadoria;
-import org.pasa.sispasa.cargapasa.enumeration.EnumTipoAssociado;
 import org.pasa.sispasa.cargapasa.enumeration.EnumTipoRespPagamento;
 import org.pasa.sispasa.cargapasa.util.CargaPasaCommon;
 import org.pasa.sispasa.cargapasa.util.DateUtil;
@@ -17,7 +16,7 @@ public class Associado {
     private String matriculaPasa;
     private String matriculaValiaRepresentante;
     private String matriculaValiaParticipante;
-    private EnumTipoRespPagamento tipoRespPagamento;
+    private String tipoRespPagamento;
     private EnumTipoAposentadoria tipoAposentadoria;
     private Date dataAssociacao;
     private Date dataAposentadoria;
@@ -31,7 +30,8 @@ public class Associado {
     private Long idTaxaAssociado;
     private Long idSituacaoAssociado;
     private Long idParticipante;
-    private Long tipoAssociado;
+    private String tipoAssociado;
+    private String categoria;
     private Associado associadoOrigem;
     private MotivoDesligamento motivoDesligamentoGrupo;
     private MotivoDesligamento motivoDesligamentoAssociado;
@@ -79,11 +79,11 @@ public class Associado {
         this.matriculaValiaParticipante = matriculaValiaParticipante;
     }
 
-    public EnumTipoRespPagamento getTipoRespPagamento() {
+    public String getTipoRespPagamento() {
         return tipoRespPagamento;
     }
 
-    public void setTipoRespPagamento(EnumTipoRespPagamento tipoRespPagamento) {
+    public void setTipoRespPagamento(String tipoRespPagamento) {
         this.tipoRespPagamento = tipoRespPagamento;
     }
 
@@ -95,11 +95,11 @@ public class Associado {
         this.tipoAposentadoria = tipoAposentadoria;
     }
 
-    public Long getTipoAssociado() {
+    public String getTipoAssociado() {
         return tipoAssociado;
     }
 
-    public void setTipoAssociado(Long tipoAssociado) {
+    public void setTipoAssociado(String tipoAssociado) {
         this.tipoAssociado = tipoAssociado;
     }
 
@@ -213,6 +213,14 @@ public class Associado {
 
     public void setIdTaxaAssociado(Long idTaxaAssociado) {
         this.idTaxaAssociado = idTaxaAssociado;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
     public Long getIdSituacaoAssociado() {

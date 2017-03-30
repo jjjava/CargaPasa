@@ -104,13 +104,6 @@ public class TempBenPasaDAOImpl {
                     System.err.println(this.getClass().getName() + ":\n" + ex);
                 }
             }
-            if (null != conn) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
-                }
-            }
         }
         return modelo;
     }
@@ -192,13 +185,6 @@ public class TempBenPasaDAOImpl {
             if (null != stmt) {
                 try {
                     stmt.close();
-                } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
-                }
-            }
-            if (null != conn) {
-                try {
-                    conn.close();
                 } catch (SQLException ex) {
                     System.err.println(this.getClass().getName() + ":\n" + ex);
                 }
@@ -289,13 +275,6 @@ public class TempBenPasaDAOImpl {
                     System.err.println(this.getClass().getName() + ":\n" + ex);
                 }
             }
-            if (null != conn) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
-                }
-            }
         }
         return modelo;
     }
@@ -303,7 +282,7 @@ public class TempBenPasaDAOImpl {
     public TempBenPASA get(String empresa, String matricula, String codBenef) {
         TempBenPASA modelo = new TempBenPASA();
         String sql = "select * from TB_TEMP_BEN_PASA where empresa = '" + empresa
-                + "' and matricula = '" + matricula + "' and cod_beneficiario = '" + codBenef + "'";
+                + "' and matricula = '" + matricula + "' and codBeneficiario = '" + codBenef + "'";
 
         Statement stmt = null;
         ResultSet rs = null;
@@ -382,13 +361,6 @@ public class TempBenPasaDAOImpl {
                     System.err.println(this.getClass().getName() + ":\n" + ex);
                 }
             }
-            if (null != conn) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
-                }
-            }
         }
         return modelo;
     }
@@ -396,7 +368,7 @@ public class TempBenPasaDAOImpl {
     public List<TempBenPASA> getUsuarios(String empresa, String matricula) {
         List<TempBenPASA> modelos = new ArrayList<>();
         String sql = "select * from TB_TEMP_BEN_PASA where empresa = '" + empresa
-                + "' and matricula = '" + matricula + "' and cod_beneficiario <> '00'";
+                + "' and matricula = '" + matricula + "' and codBeneficiario <> '00'";
         Statement stmt = null;
         ResultSet rs = null;
         try {
@@ -473,13 +445,6 @@ public class TempBenPasaDAOImpl {
             if (null != stmt) {
                 try {
                     stmt.close();
-                } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
-                }
-            }
-            if (null != conn) {
-                try {
-                    conn.close();
                 } catch (SQLException ex) {
                     System.err.println(this.getClass().getName() + ":\n" + ex);
                 }
@@ -643,13 +608,6 @@ public class TempBenPasaDAOImpl {
             if (null != stmt) {
                 try {
                     stmt.close();
-                } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
-                }
-            }
-            if (null != conn) {
-                try {
-                    conn.close();
                 } catch (SQLException ex) {
                     System.err.println(this.getClass().getName() + ":\n" + ex);
                 }

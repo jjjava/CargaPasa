@@ -21,7 +21,7 @@ public class EstadoDAOImpl {
 
     public Estado get(String uf) {
         Estado estado = new Estado();
-        String sql = "select * from estado where uf = '" + uf + "'";
+        String sql = "select * from estado where id_estado = '" + uf + "'";
         Statement stmt = null;
         ResultSet rs = null;
         try {
@@ -45,13 +45,6 @@ public class EstadoDAOImpl {
             if (null != stmt) {
                 try {
                     stmt.close();
-                } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + "\n" + ex);
-                }
-            }
-            if (null != conn) {
-                try {
-                    conn.close();
                 } catch (SQLException ex) {
                     System.err.println(this.getClass().getName() + "\n" + ex);
                 }

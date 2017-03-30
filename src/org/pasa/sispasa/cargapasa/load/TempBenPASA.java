@@ -51,7 +51,7 @@ public class TempBenPASA {
     private String centroDeCusto;
     private String matriculaParticipante;
     private String matriculaRepresentanteLegal;
-
+    
     //CAMPOS DIFERENTES
     private String categoriaPASA;
     private String dataAdesao;
@@ -61,6 +61,9 @@ public class TempBenPASA {
     private String diasDeCarencia;
     private String codigoNacionalDeSaude;
     private String declaracaoNascidoVivo;
+    private String indAtivo;
+           
+    
 
     public TempBenPASA() {
     }
@@ -489,4 +492,11 @@ public class TempBenPASA {
         this.declaracaoNascidoVivo = declaracaoNascidoVivo;
     }
 
+    public String getIndAtivo() {
+        return indAtivo;
+    }
+
+    public void setIndAtivo(String indAtivo) {
+        this.indAtivo = indAtivo;
+    }
 }

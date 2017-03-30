@@ -21,7 +21,7 @@ public class EmpresaDAOImpl {
 
     public Empresa get(Long id) {
         Empresa empresa = new Empresa();
-        String sql = "select id_empresa,cd_empresa_vale from emprea where id_empresa = " + id;
+        String sql = "select id_empresa,cd_empresa_vale from empresa where id_empresa = " + id;
 
         Statement stmt = null;
         ResultSet rs = null;
@@ -45,13 +45,6 @@ public class EmpresaDAOImpl {
             if (null != stmt) {
                 try {
                     stmt.close();
-                } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + "\n" + ex);
-                }
-            }
-            if (null != conn) {
-                try {
-                    conn.close();
                 } catch (SQLException ex) {
                     System.err.println(this.getClass().getName() + "\n" + ex);
                 }
@@ -90,20 +83,13 @@ public class EmpresaDAOImpl {
                     System.err.println(this.getClass().getName() + "\n" + ex);
                 }
             }
-            if (null != conn) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + "\n" + ex);
-                }
-            }
         }
         return empresa;
     }
 
     public Long getByCdVale(String cod) {
         Long id = null;
-        String sql = "select id_empresa,cd_empresa_vale from emprea where cd_empresa_vale = '" + cod + "'";
+        String sql = "select id_empresa,cd_empresa_vale from empresa where cd_empresa_vale = '" + cod + "'";
 
         Statement stmt = null;
         ResultSet rs = null;
@@ -126,13 +112,6 @@ public class EmpresaDAOImpl {
             if (null != stmt) {
                 try {
                     stmt.close();
-                } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + "\n" + ex);
-                }
-            }
-            if (null != conn) {
-                try {
-                    conn.close();
                 } catch (SQLException ex) {
                     System.err.println(this.getClass().getName() + "\n" + ex);
                 }

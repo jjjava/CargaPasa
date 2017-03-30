@@ -24,8 +24,9 @@ public class MaestroCargaPasaBeanImpl {
     }
 
     public void inicio() {
-        this.readBenFile();
-        this.readEndFile();
+       // this.readBenFile();
+       // this.readEndFile();
+        //System.err.println("cabou");
         this.mapearEntidades();
     }
 
@@ -74,6 +75,7 @@ public class MaestroCargaPasaBeanImpl {
     private void mapearEntidades() {
         ExecutorService executor = Executors.newFixedThreadPool(Sistema.getNumberProcessors());
         long qtdRegistros = daoBen.count();
+        System.out.println(qtdRegistros);
         if (qtdRegistros > 2001) {
             long lote = ArquivoUtil.getNumeroLinhasLote(qtdRegistros);
             long ini = 1;

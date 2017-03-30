@@ -55,11 +55,7 @@ public class EnderecoDAOImpl {
             System.err.println(this.getClass().getName() + ":\n" + ex);
             return null;
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException ex) {
-                System.err.println(this.getClass().getName() + ":\n" + ex);
-            }
+
         }
         return id;
     }

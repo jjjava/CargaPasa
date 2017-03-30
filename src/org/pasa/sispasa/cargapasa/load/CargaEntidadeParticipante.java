@@ -112,7 +112,6 @@ public class CargaEntidadeParticipante {
         Endereco endereco = new Endereco();
         endereco.setLogradouro(endModelo.getEndereco());
         endereco.setBairro(endModelo.getBairro());
-        
         endereco.setCep(endModelo.getCep());//BuscaCEP.getCepasString(endModelo.getCep());
         
         endereco.setIdUsuario(CargaPasaCommon.USER_CARGA);
@@ -120,6 +119,7 @@ public class CargaEntidadeParticipante {
         endereco.setDataUltimaAtualizacao(DateUtil.obterDataAtual());
         endereco.setIdEstado(estado.getId());
         endereco.setIdMunicipio(municipio.getId());
+        
         return enderecoDAO.save(endereco);
     }
     
@@ -177,7 +177,7 @@ public class CargaEntidadeParticipante {
     }
     
     private void setAtributos(TempBenPASA modelo) {
-        participante.setSexo(modelo.getCpf());
+        participante.setCpf(modelo.getCpf());
         participante.setDataFalecimento(DateUtil.toDate(modelo.getDataFalecimento()));
         participante.setDataNascimento(DateUtil.toDate(modelo.getDataNascimento()));
         participante.setDataUltimaAtualizacao(DateUtil.obterDataAtual());
@@ -186,6 +186,8 @@ public class CargaEntidadeParticipante {
         participante.setNome(modelo.getNomeCompleto());
         participante.setNomeMae(modelo.getNomeDaMae());
         participante.setSexo(modelo.getSexo());
+        participante.setEstadoCivil(2L);
+        participante.setNacionalidade(1L);
     }
     
     private void linkListas(Long idParticipante){

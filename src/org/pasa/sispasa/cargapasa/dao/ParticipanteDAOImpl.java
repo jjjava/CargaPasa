@@ -21,22 +21,24 @@ public class ParticipanteDAOImpl {
     }
 
     public Long save(Participante modelo) {
-        Long id = null;
+        Long idRetornoParticipante = null;
         PreparedStatement ps = null;
         try {
             String sql = "INSERT INTO PARTICIPANTE ("
                     + " CPF"
                     + ",DT_NASCIMENTO"
-                    + ",EMAIL"
+                    + ",EMAIL_COMERCIAL"
                     + ",ID_USUARIO"
                     + ",IND_ATIVO"
                     + ",DT_ULT_ATULZ"
-                    + ",ID_CONCL_ESCOL"
+                    + ",IND_CONCL_ESCOL"
                     + ",NOME"
                     + ",NM_MAE"
                     + ",SEXO"
                     + ",ID_ENDERECO"
-                    + ",ID_NIVEL_ESCOL ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + ",ID_NIVEL_ESCOL"
+                    + ",ID_ESTADO_CIVIL"
+                    + ",ID_PAIS) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, modelo.getCpf());
@@ -51,12 +53,13 @@ public class ParticipanteDAOImpl {
             ps.setString(10, modelo.getSexo());
             ps.setLong(11, modelo.getEndereco());
             ps.setLong(12, modelo.getNivelEscolaridade());
+            ps.setLong(13, modelo.getEstadoCivil());
+            ps.setLong(14, modelo.getNacionalidade());
 
             ps.executeUpdate();
-
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                id = rs.getLong(1);
+                idRetornoParticipante = rs.getLong(1);
             }
             rs.close();
             ps.close();
@@ -65,12 +68,7 @@ public class ParticipanteDAOImpl {
             System.err.println(this.getClass().getName() + ":\n" + ex);
             return null;
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException ex) {
-                System.err.println(this.getClass().getName() + ":\n" + ex);
-            }
         }
-        return id;
+        return idRetornoParticipante;
     }
 }

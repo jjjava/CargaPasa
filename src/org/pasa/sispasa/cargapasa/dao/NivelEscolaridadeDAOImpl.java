@@ -20,6 +20,9 @@ public class NivelEscolaridadeDAOImpl {
 
     public Long get(String cod) {
         Long id = null;
+        if(cod.equalsIgnoreCase("")){
+            cod = "0";
+        }
         String sql = "select * from nivel_escolaridade where cd_externo = '" + cod + "'";
 
         Statement stmt = null;
@@ -44,13 +47,6 @@ public class NivelEscolaridadeDAOImpl {
             if (null != stmt) {
                 try {
                     stmt.close();
-                } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + "\n" + ex);
-                }
-            }
-            if (null != conn) {
-                try {
-                    conn.close();
                 } catch (SQLException ex) {
                     System.err.println(this.getClass().getName() + "\n" + ex);
                 }

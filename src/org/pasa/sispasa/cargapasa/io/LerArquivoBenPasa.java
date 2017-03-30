@@ -139,7 +139,7 @@ public class LerArquivoBenPasa {
             campo = (PosicaoCampo) mapa.get(MapaCampos.CODIGO_DIREITO_PASA);
             modelo.setCodigoDireitoPasa(line.substring(campo.getInicioCampo(), campo.getFimCampo()).trim());
             campo = (PosicaoCampo) mapa.get(MapaCampos.GRAU_ESCOLARIDADE);
-            modelo.setGrauEscolaridade(line.substring(campo.getInicioCampo(), campo.getFimCampo()).trim());
+            modelo.setGrauEscolaridade(acertaNivelEscolaridade(line.substring(campo.getInicioCampo(), campo.getFimCampo()).trim()));
             campo = (PosicaoCampo) mapa.get(MapaCampos.INDICAR_CONCLUSAO);
             modelo.setIndicadorConclusao(line.substring(campo.getInicioCampo(), campo.getFimCampo()).trim());
             campo = (PosicaoCampo) mapa.get(MapaCampos.DATA_FALECIMENTO);
@@ -214,6 +214,10 @@ public class LerArquivoBenPasa {
         } else {
             return "";
         }
+    }
+    
+    private String acertaNivelEscolaridade(String nvlesc){
+        return acertaPlano(nvlesc);
     }
 
     private String acertaPlano(String plano) {

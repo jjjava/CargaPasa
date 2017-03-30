@@ -29,12 +29,12 @@ public class Participante {
     private Date dataUltimaAtualizacao;
     private Long associado;
     private Long endereco;
-    private List<Long> partDadosBancarios;
     private Long nacionalidade;
     private Long naturalidade;
     private Long cidadeOrigem;
     private Long nivelEscolaridade;
     private Long estadoCivil;
+    private List<Long> partDadosBancarios;
     private List<Long> telefones;
     private List<Long> documentos;
 

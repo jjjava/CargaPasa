@@ -28,7 +28,7 @@ public class DocumentoDAOImpl {
                     + "NUMERO,"
                     + "ID_USUARIO,"
                     + "IND_ATIVO,"
-                    + "DT_ULT_ATULIZ,"
+                    + "DT_ULT_ATULZ,"
                     + "ID_TP_DOCUMENTO) VALUES (?,?,?,?,?)";
 
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -50,11 +50,6 @@ public class DocumentoDAOImpl {
             System.err.println(this.getClass().getName() + ":\n" + ex);
             return null;
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException ex) {
-                System.err.println(this.getClass().getName() + ":\n" + ex);
-            }
         }
         return id;
     }
@@ -68,15 +63,12 @@ public class DocumentoDAOImpl {
             ps = conn.prepareStatement(sql);
             ps.setLong(1, idParticipante);
             ps.setLong(2, idDocumento);
+            ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
             System.err.println(this.getClass().getName() + "\n" + ex);
         } finally {
-            try {
-                conn.close();
-            } catch (SQLException ex) {
-                System.err.println(this.getClass().getName() + ":\n" + ex);
-            }
+
         }
     }
 }

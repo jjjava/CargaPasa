@@ -31,7 +31,7 @@ public class MunicipioDAOImpl {
             while (rs.next()) {
                 municipio.setId(rs.getLong("id_municipio"));
                 municipio.setNome(rs.getString("nome"));
-                municipio.setIdEstado(rs.getLong("id_estado"));
+                municipio.setIdEstado(rs.getString("id_estado"));
             }
         } catch (SQLException ex) {
             System.err.println(this.getClass().getName() + ":\n" + ex);
@@ -51,13 +51,7 @@ public class MunicipioDAOImpl {
                     System.err.println(this.getClass().getName() + ":\n" + ex);
                 }
             }
-            if (null != conn) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
-                }
-            }
+
         }
         return municipio;
     }
@@ -74,7 +68,7 @@ public class MunicipioDAOImpl {
             while (rs.next()) {
                 municipio.setId(rs.getLong("id_municipio"));
                 municipio.setNome(rs.getString("nome"));
-                municipio.setIdEstado(rs.getLong("id_estado"));
+                municipio.setIdEstado(rs.getString("id_estado"));
             }
         } catch (SQLException ex) {
             System.err.println(this.getClass().getName() + ":\n" + ex);
@@ -94,13 +88,7 @@ public class MunicipioDAOImpl {
                     System.err.println(this.getClass().getName() + ":\n" + ex);
                 }
             }
-            if (null != conn) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
-                }
-            }
+
         }
         return municipio;
     }

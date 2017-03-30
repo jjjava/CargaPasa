@@ -33,8 +33,10 @@ public class UsuarioPlanoDAOImpl {
                     + "ID_TP_USUARIO"
                     + "ID_GRAU_PARENT"
                     + "STATUS_USUARIO"
-                    + "DT_INCLUSAO_SISTEMA";
+                    + "DT_INCLUSAO_SISTEMA) VALUES (?,?,?,?,?,?,?,?)";
+            
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            
             ps.setInt(1, up.getIndTitularResponsavelPagamento());
             ps.setLong(2, up.getIdParticipante());
             ps.setLong(3, up.getIdAdesaoPlano());

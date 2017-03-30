@@ -63,13 +63,6 @@ public class TempEndPasaDAOImpl {
                     System.err.println(this.getClass().getName() + ":\n" + ex);
                 }
             }
-            if (null != conn) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
-                }
-            }
         }
         return modelo;
     }
@@ -117,13 +110,6 @@ public class TempEndPasaDAOImpl {
                     System.err.println(this.getClass().getName() + ":\n" + ex);
                 }
             }
-            if (null != conn) {
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
-                }
-            }
         }
         return modelo;
     }
@@ -131,7 +117,7 @@ public class TempEndPasaDAOImpl {
     public TempEndPASA get(String empresa, String matricula, String cdBenef) {
         TempEndPASA modelo = new TempEndPASA();
         String sql = "select * from TB_TEMP_END_PASA where empresa = '" + empresa
-                + "' and matricula ='" + matricula + "' and cod_beneficiario = '" + cdBenef + "'";
+                + "' and matricula ='" + matricula + "' and codBeneficiario = '" + cdBenef + "'";
 
         Statement stmt = null;
         ResultSet rs = null;
@@ -167,13 +153,6 @@ public class TempEndPasaDAOImpl {
             if (null != stmt) {
                 try {
                     stmt.close();
-                } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
-                }
-            }
-            if (null != conn) {
-                try {
-                    conn.close();
                 } catch (SQLException ex) {
                     System.err.println(this.getClass().getName() + ":\n" + ex);
                 }

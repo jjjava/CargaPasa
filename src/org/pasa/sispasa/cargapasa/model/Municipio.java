@@ -8,7 +8,7 @@ public class Municipio {
 
     private Long id;
     private String nome;
-    private Long idEstado;
+    private String idEstado;
 
     public Municipio() {
     }
@@ -33,11 +33,11 @@ public class Municipio {
         this.nome = nome;
     }
 
-    public Long getIdEstado() {
+    public String getIdEstado() {
         return idEstado;
     }
 
-    public void setIdEstado(Long idEstado) {
+    public void setIdEstado(String idEstado) {
         this.idEstado = idEstado;
     }
 }
