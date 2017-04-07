@@ -24,10 +24,13 @@ public class MaestroCargaPasaBeanImpl {
     }
 
     public void inicio() {
+        //readFiles();
+        this.mapearEntidades();
+    }
+
+    private void readFiles() {
         this.readBenFile();
         this.readEndFile();
-        System.err.println("cabou");
-        //this.mapearEntidades();
     }
 
     private void readBenFile() {

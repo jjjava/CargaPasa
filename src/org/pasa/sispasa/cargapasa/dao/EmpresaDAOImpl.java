@@ -55,7 +55,7 @@ public class EmpresaDAOImpl {
 
     public Empresa get(String cod) {
         Empresa empresa = new Empresa();
-        String sql = "select id_empresa,cd_empresa_vale from emprea where cd_empresa_vale = '" + cod + "'";
+        String sql = "select id_empresa,cd_empresa_vale from empresa where cd_empresa_vale = '" + cod + "'";
 
         Statement stmt = null;
         ResultSet rs = null;
