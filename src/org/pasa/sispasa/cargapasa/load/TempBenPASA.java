@@ -62,9 +62,10 @@ public class TempBenPASA {
     private String codigoNacionalDeSaude;
     private String declaracaoNascidoVivo;
     private String indAtivo;
-           
     
-
+    //Controle de carga
+    private Integer ok;
+    
     public TempBenPASA() {
     }
 
@@ -498,5 +499,13 @@ public class TempBenPASA {
 
     public void setIndAtivo(String indAtivo) {
         this.indAtivo = indAtivo;
+    }
+
+    public Integer getOk() {
+        return ok;
+    }
+
+    public void setOk(Integer ok) {
+        this.ok = ok;
     }
 }

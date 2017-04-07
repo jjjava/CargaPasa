@@ -1,5 +1,6 @@
 package org.pasa.sispasa.cargapasa.load;
 
+import java.util.Date;
 import java.util.List;
 import org.pasa.sispasa.cargapasa.dao.AdesaoPlanoDAOImpl;
 import org.pasa.sispasa.cargapasa.dao.AssociadoDAOImpl;
@@ -8,7 +9,6 @@ import org.pasa.sispasa.cargapasa.dao.FuncionarioDAOImpl;
 import org.pasa.sispasa.cargapasa.dao.PessoaDAOImpl;
 import org.pasa.sispasa.cargapasa.dao.PlanoDAOImpl;
 import org.pasa.sispasa.cargapasa.dao.TempBenPasaDAOImpl;
-import org.pasa.sispasa.cargapasa.enumeration.EnumTipoRespPagamento;
 import org.pasa.sispasa.cargapasa.model.Adesao;
 import org.pasa.sispasa.cargapasa.model.Associado;
 import org.pasa.sispasa.cargapasa.util.CargaPasaCommon;
@@ -22,6 +22,7 @@ public class CargaEntidadeAssociado {
 
     private Associado associado;
 
+    private final TempBenPasaDAOImpl daoBen;
     private final PlanoDAOImpl planoDAO;
     private final PessoaDAOImpl pessoaDAO;
     private final EmpresaDAOImpl empresaDAO;
@@ -42,53 +43,49 @@ public class CargaEntidadeAssociado {
         this.funcionarioDAO = new FuncionarioDAOImpl();
         this.cargaEntidadeUsuario = new CargaEntidadeUsuario();
         this.cargaEntidadeParticipante = new CargaEntidadeParticipante();
+        this.daoBen = new TempBenPasaDAOImpl();
     }
 
     public void newAssociado(TempBenPASA modeloBenef, String tpAssociado) {
-        
-        Long idPessoa = pessoaDAO.getIdByNome(modeloBenef.getNomeCompleto());
-        if (null != idPessoa) {
-            Long idFuncionario = funcionarioDAO.getId(idPessoa);
-            System.out.println(idFuncionario+" "+modeloBenef.getNomeCompleto());
-            if (null != idFuncionario) {
-                System.out.println("Achou Funcionario: "+idFuncionario);
-                associado = new Associado();
-                associado.setIdFuncionario(idFuncionario);
-                associado.setTipoAssociado(tpAssociado);
 
-                //CRIAR PARTICIPANTE
-                Long idParticipante = cargaEntidadeParticipante.newParticipante(modeloBenef);
-                if (null != idParticipante) {
-                    associado.setIdParticipante(idParticipante);
-                }
+        Long idFuncionario = funcionarioDAO.getIdByMatriculaOrgiem(modeloBenef.getMatriculaOrigem(), modeloBenef.getEmpresa());
+        if (null != idFuncionario) {
+            System.out.println("Achou Funcionario: " + idFuncionario);
+            associado = new Associado();
+            associado.setIdFuncionario(idFuncionario);
+            associado.setTipoAssociado(tpAssociado);
 
-                //ATRIBUTOS
-                this.setAtributos(modeloBenef);
-                //FUNCIONARIO
-                this.setFuncionario(modeloBenef);
-
-                //MATRICULAS
-                associado.setMatriculaPasa(modeloBenef.getMatriculaPasa());
-                associado.setMatriculaValiaParticipante(modeloBenef.getMatriculaParticipante());
-                associado.setMatriculaValiaRepresentante(modeloBenef.getMatriculaRepresentanteLegal());
-
-                //CARGA
-                associado.setId(CargaPasaCommon.USER_CARGA);
-                associado.setDataUltimaAlteracao(DateUtil.obterDataAtual());
-
-                //SALVAR ASSOCIADO
-                associadoDAO.salve(associado);
-
-                //CRIAR ADESAO
-                Long idAdesao = newAdesao(modeloBenef, idParticipante);
-
-                //CRIAR USUARIO PLANO
-                cargaEntidadeUsuario.newUsuarioPlano(modeloBenef, CargaPasaCommon.VERDADEIRO,
-                        idParticipante, idParticipante);
-
-                //AGREGADOs E USUARIOs
-                this.agregadosUsuarios(modeloBenef, idParticipante, idAdesao);
+            //CRIAR PARTICIPANTE
+            Long idParticipante = cargaEntidadeParticipante.newParticipante(modeloBenef);
+            if (null != idParticipante) {
+                associado.setIdParticipante(idParticipante);
             }
+
+            //ATRIBUTOS
+            this.setAtributos(modeloBenef);
+
+            //MATRICULAS
+            associado.setMatriculaPasa(modeloBenef.getMatriculaPasa());
+            associado.setMatriculaValiaParticipante(modeloBenef.getMatriculaParticipante());
+            associado.setMatriculaValiaRepresentante(modeloBenef.getMatriculaRepresentanteLegal());
+
+            //CARGA
+            associado.setId(CargaPasaCommon.USER_CARGA);
+            associado.setDataUltimaAlteracao(DateUtil.obterDataAtual());
+
+            //SALVAR ASSOCIADO
+            associadoDAO.salve(associado);
+
+            //CRIAR ADESAO
+            Long idAdesao = newAdesao(modeloBenef, idParticipante);
+
+            //CRIAR USUARIO PLANO
+            cargaEntidadeUsuario.newUsuarioPlano(modeloBenef, CargaPasaCommon.VERDADEIRO,
+                    idParticipante, idParticipante);
+
+            //AGREGADOs E USUARIOs
+            this.agregadosUsuarios(modeloBenef, idParticipante, idAdesao);
+
         }
     }
 
@@ -108,9 +105,7 @@ public class CargaEntidadeAssociado {
         Adesao adesao = new Adesao();
         adesao.setIdAssociado(idAssoc);
         Long idPlano = getPlano(modeloBenef);
-
         adesao.setIdPlano(idPlano);
-
         adesao.setIdUsuario(CargaPasaCommon.USER_CARGA);
         adesao.setDataInclusaoSistema(DateUtil.obterDataAtual());
         return adesaoPlanoDAO.save(adesao);
@@ -122,21 +117,30 @@ public class CargaEntidadeAssociado {
 
     private void setAtributos(TempBenPASA modeloBenef) {
         associado.setDataAdmissaoGrupo(DateUtil.toDate(modeloBenef.getDataAdmissao()));
-        associado.setIdTaxaAssociado(2L);
+        //associado.setDataAssociacao(DateUtil.toDate(modeloBenef.getDataAdesao()));
+        findDataAssociacao(modeloBenef);
+        associado.setIdTaxaAssociado(1L);
         associado.setIdSituacaoAssociado(3L);
         associado.setTipoRespPagamento("T");//
         associado.setCategoria(modeloBenef.getCategoriaPASA());
     }
 
-    private void setFuncionario(TempBenPASA modeloBenef) {
-        Long idFunc = funcionarioDAO.getId(empresaDAO.getByCdVale(modeloBenef.getEmpresaOrigem()),
-                modeloBenef.getMatriculaOrigem());
+    private void findDataAssociacao(TempBenPASA modeloBenef) {
 
-        if (null != idFunc) {
-            associado.setIdFuncionario(idFunc);
+        List<TempBenPASA> list = daoBen.getTitular(modeloBenef.getEmpresa(), modeloBenef.getMatriculaOrigem());
+        TempBenPASA t1 = list.get(0);
+        TempBenPASA t2 = list.get(1);
+        Date d1 = DateUtil.toDate(t1.getDataAdesao());
+        Date d2 = DateUtil.toDate(t2.getDataAdesao());
+
+        if (d1.after(d2)) {
+            associado.setDataAssociacao(d1);
+            daoBen.update(t2);
+            daoBen.update(t1);            
         } else {
-            System.out.println("Nao achou funcionario");
-            associado.setIdFuncionario(-1L);
+            associado.setDataAssociacao(d2);
+            daoBen.update(t1);
+            daoBen.update(t2);
         }
     }
 }

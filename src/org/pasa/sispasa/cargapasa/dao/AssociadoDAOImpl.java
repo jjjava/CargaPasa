@@ -3,7 +3,6 @@ package org.pasa.sispasa.cargapasa.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import org.pasa.sispasa.cargapasa.connection.SQLServerConnection;
 import org.pasa.sispasa.cargapasa.model.Associado;
 
@@ -34,12 +33,13 @@ public class AssociadoDAOImpl {
                     + ",DT_ULT_ATULZ"
                     + ",DT_ADMISSAO_GRUPO"
                     + ",TP_RESPONSAVEL_PAGAMENTO"
-                    + ",CD_CATEGORIA_LEG) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+                    + ",CD_CATEGORIA_LEG"
+                    + ",ID_FUNCIONARIO"
+                    + ",DT_ASSOCIACAO) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             ps = conn.prepareStatement(sql);
 
             ps.setLong(1, associado.getIdParticipante());
-            //ps.setLong(2, associado.getIdFuncionario());
             ps.setLong(2, associado.getIdTaxaAssociado());
             ps.setLong(3, associado.getIdSituacaoAssociado());
             ps.setString(4, associado.getTipoAssociado());
@@ -51,7 +51,9 @@ public class AssociadoDAOImpl {
             ps.setDate(10, new java.sql.Date(associado.getDataAdmissaoGrupo().getTime()));
             ps.setString(11, associado.getTipoRespPagamento());
             ps.setString(12, associado.getCategoria());
-            
+            ps.setLong(13, associado.getIdFuncionario());
+            ps.setDate(14, new java.sql.Date(associado.getDataAssociacao().getTime()));
+
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {

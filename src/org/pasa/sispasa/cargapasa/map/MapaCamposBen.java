@@ -47,12 +47,12 @@ public class MapaCamposBen {
         mapa.put(MapaCampos.GRAU_ESCOLARIDADE, new PosicaoCampo(137, 138));
        
         mapa.put(MapaCampos.DATA_FALECIMENTO, new PosicaoCampo(138, 148));
-        mapa.put(MapaCampos.MATRICULA_PASA, new PosicaoCampo(148, 153));
+        mapa.put(MapaCampos.MATRICULA_PASA, new PosicaoCampo(148, 154));
         mapa.put(MapaCampos.NOME_DA_MAE, new PosicaoCampo(154, 223));
         mapa.put(MapaCampos.PIS, new PosicaoCampo(224, 234));
         mapa.put(MapaCampos.CPF, new PosicaoCampo(235, 246));
         mapa.put(MapaCampos.EMPRESA_ORIGEM, new PosicaoCampo(246, 248));
-        mapa.put(MapaCampos.MATRICULA_ORIGEM, new PosicaoCampo(248, 253));
+        mapa.put(MapaCampos.MATRICULA_ORIGEM, new PosicaoCampo(248, 254));
         mapa.put(MapaCampos.EMPRESA_PEOPLE, new PosicaoCampo(254, 257));
         mapa.put(MapaCampos.MATRICULA_PEOPLE, new PosicaoCampo(257, 264));
         mapa.put(MapaCampos.UNIDADE_DE_CONTROLE, new PosicaoCampo(264, 266));

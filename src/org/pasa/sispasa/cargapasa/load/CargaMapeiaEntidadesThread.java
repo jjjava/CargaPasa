@@ -1,8 +1,6 @@
 package org.pasa.sispasa.cargapasa.load;
 
 import org.pasa.sispasa.cargapasa.dao.TempBenPasaDAOImpl;
-import org.pasa.sispasa.cargapasa.enumeration.EnumCategoria;
-import org.pasa.sispasa.cargapasa.enumeration.EnumTipoAssociado;
 import org.pasa.sispasa.cargapasa.util.CargaPasaCommon;
 
 /**
@@ -35,9 +33,12 @@ public class CargaMapeiaEntidadesThread implements Runnable {
             for (Long k = ini; k < qtdRegistros; k++) {
                 try {
                     TempBenPASA modeloBenef = benDAO.get(k);
+
                     if (null != modeloBenef) {
-                        if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase(CargaPasaCommon.ASSOCIADO)) {
-                            cargaEntidadeAssociado.newAssociado(modeloBenef, "A");//Atencao
+                        if (1 != modeloBenef.getOk()) {
+                            if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase(CargaPasaCommon.ASSOCIADO)) {
+                                cargaEntidadeAssociado.newAssociado(modeloBenef, "A");//Atencao
+                            }
                         }
                     }
                 } catch (Exception ex) {

@@ -16,12 +16,14 @@ import org.pasa.sispasa.cargapasa.model.Pessoa;
 public class FuncionarioDAOImpl {
 
     private final Connection conn;
+    private final EmpresaDAOImpl empresaDAO;
 
     public FuncionarioDAOImpl() {
         this.conn = SQLServerConnection.getConnectionPipe();
+        this.empresaDAO = new EmpresaDAOImpl();
     }
-    
-    public Long getId(Long idPessoa){
+
+    public Long getId(Long idPessoa) {
         Long id = null;
         String sql = "select * from funcionario where funcionario.id_pessoa = " + idPessoa;
 
@@ -52,6 +54,11 @@ public class FuncionarioDAOImpl {
             }
         }
         return id;
+    }
+
+    public Long getIdByMatriculaOrgiem(String matOrigem, String empresa) {
+        String aux = "0" + matOrigem;
+        return getId(empresaDAO.get(empresa).getId(), aux);
     }
 
     public Long getId(Long empresa, String matricula) {
@@ -122,4 +129,5 @@ public class FuncionarioDAOImpl {
         }
         return funcionario;
     }
+
 }

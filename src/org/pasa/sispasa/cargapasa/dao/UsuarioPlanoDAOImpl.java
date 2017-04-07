@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import org.pasa.sispasa.cargapasa.connection.SQLServerConnection;
 import org.pasa.sispasa.cargapasa.model.UsuarioPlano;
+import org.pasa.sispasa.cargapasa.util.CargaPasaCommon;
 
 /**
  *
@@ -27,13 +28,14 @@ public class UsuarioPlanoDAOImpl {
         try {
             String sql = "INSERT INTO USUARIO_PLANO ("
                     + "IND_TITULAR_RESPONSAVEL_PAG"
-                    + "ID_PARTICIPANTE"
-                    + "ID_ADESAO_PLANO"
-                    + "ID_USUARIO_TITULAR_PLANO"
-                    + "ID_TP_USUARIO"
-                    + "ID_GRAU_PARENT"
-                    + "STATUS_USUARIO"
-                    + "DT_INCLUSAO_SISTEMA) VALUES (?,?,?,?,?,?,?,?)";
+                    + ",ID_PARTICIPANTE"
+                    + ",ID_ADESAO_PLANO"
+                    + ",ID_USUARIO_TITULAR_PLANO"
+                    + ",ID_TP_USUARIO"
+                    + ",ID_GRAU_PARENT"
+                    + ",STATUS_USUARIO"
+                    + ",DT_INCLUSAO_SISTEMA"
+                    + ",ID_USUARIO) VALUES (?,?,?,?,?,?,?,?,?)";
             
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
@@ -45,6 +47,7 @@ public class UsuarioPlanoDAOImpl {
             ps.setLong(6, up.getIdGrauParentesco());
             ps.setInt(7, up.getStatusUsuario());
             ps.setDate(8, new java.sql.Date(up.getDataInclusaoSistema().getTime()));
+            ps.setLong(9, CargaPasaCommon.USER_CARGA);
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
