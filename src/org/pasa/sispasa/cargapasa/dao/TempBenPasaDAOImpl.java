@@ -371,7 +371,7 @@ public class TempBenPasaDAOImpl {
 
     public List<TempBenPASA> getTitular(String empresa, String matriculaOrigem) {
         List<TempBenPASA> modelos = new ArrayList<>();
-        String sql = "select  from TB_TEMP_BEN_PASA where empresaOrigem = '" + empresa
+        String sql = "select * from TB_TEMP_BEN_PASA where empresaOrigem = '" + empresa
                 + "' and matriculaOrigem = '" + matriculaOrigem + "'";
         Statement stmt = null;
         ResultSet rs = null;
@@ -839,7 +839,7 @@ public class TempBenPasaDAOImpl {
             pst = conn.prepareStatement("UPDATE TB_TEMP_BEN_PASA set ok=? where id=?");
             pst.setInt(1, 1);
             //where
-            pst.setLong(1, modelo.getId());
+            pst.setLong(2, modelo.getId());
             pst.executeUpdate();
         } catch (SQLException ex) {
             System.err.println(this.getClass().getName() + ":\n" + ex);

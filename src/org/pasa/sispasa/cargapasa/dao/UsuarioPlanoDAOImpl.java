@@ -42,7 +42,7 @@ public class UsuarioPlanoDAOImpl {
             ps.setInt(1, up.getIndTitularResponsavelPagamento());
             ps.setLong(2, up.getIdParticipante());
             ps.setLong(3, up.getIdAdesaoPlano());
-            ps.setLong(4, up.getIdUsuarioPlano());
+            ps.setLong(4, up.getIdUsuarioTitularPlano());
             ps.setLong(5, up.getIdTipoUsario());
             ps.setLong(6, up.getIdGrauParentesco());
             ps.setInt(7, up.getStatusUsuario());

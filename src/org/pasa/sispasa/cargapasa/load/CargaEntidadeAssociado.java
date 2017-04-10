@@ -48,7 +48,7 @@ public class CargaEntidadeAssociado {
 
     public void newAssociado(TempBenPASA modeloBenef, String tpAssociado) {
 
-        Long idFuncionario = funcionarioDAO.getIdByMatriculaOrgiem(modeloBenef.getMatriculaOrigem(), modeloBenef.getEmpresa());
+        Long idFuncionario = funcionarioDAO.getIdByMatriculaOrgiem(modeloBenef.getMatriculaOrigem(), modeloBenef.getEmpresaOrigem());
         if (null != idFuncionario) {
             System.out.println("Achou Funcionario: " + idFuncionario);
             associado = new Associado();
@@ -77,19 +77,18 @@ public class CargaEntidadeAssociado {
             associadoDAO.salve(associado);
 
             //CRIAR ADESAO
-            Long idAdesao = newAdesao(modeloBenef, idParticipante);
-
+            // Long idAdesao = newAdesao(modeloBenef, idParticipante);
             //CRIAR USUARIO PLANO
             cargaEntidadeUsuario.newUsuarioPlano(modeloBenef, CargaPasaCommon.VERDADEIRO,
                     idParticipante, idParticipante);
 
             //AGREGADOs E USUARIOs
-            this.agregadosUsuarios(modeloBenef, idParticipante, idAdesao);
+            this.agregadosUsuarios(modeloBenef, idParticipante);
 
         }
     }
 
-    private void agregadosUsuarios(TempBenPASA modeloBenef, Long idAssoc, Long idAdesao) {
+    private void agregadosUsuarios(TempBenPASA modeloBenef, Long idAssoc) {
         List<TempBenPASA> list = tempBenPasaDAO.getUsuarios(modeloBenef.getEmpresa(), modeloBenef.getMatricula());
 
         for (TempBenPASA t : list) {
@@ -118,7 +117,7 @@ public class CargaEntidadeAssociado {
     private void setAtributos(TempBenPASA modeloBenef) {
         associado.setDataAdmissaoGrupo(DateUtil.toDate(modeloBenef.getDataAdmissao()));
         //associado.setDataAssociacao(DateUtil.toDate(modeloBenef.getDataAdesao()));
-        findDataAssociacao(modeloBenef);
+        this.findDataAssociacao(modeloBenef);
         associado.setIdTaxaAssociado(1L);
         associado.setIdSituacaoAssociado(3L);
         associado.setTipoRespPagamento("T");//
@@ -128,19 +127,25 @@ public class CargaEntidadeAssociado {
     private void findDataAssociacao(TempBenPASA modeloBenef) {
 
         List<TempBenPASA> list = daoBen.getTitular(modeloBenef.getEmpresa(), modeloBenef.getMatriculaOrigem());
-        TempBenPASA t1 = list.get(0);
-        TempBenPASA t2 = list.get(1);
-        Date d1 = DateUtil.toDate(t1.getDataAdesao());
-        Date d2 = DateUtil.toDate(t2.getDataAdesao());
 
-        if (d1.after(d2)) {
-            associado.setDataAssociacao(d1);
-            daoBen.update(t2);
-            daoBen.update(t1);            
+        if (list.size() > 1) {
+            TempBenPASA t1 = list.get(0);
+            TempBenPASA t2 = list.get(1);
+            Date d1 = DateUtil.toDate(t1.getDataAdesao());
+            Date d2 = DateUtil.toDate(t2.getDataAdesao());
+
+            if (d1.after(d2)) {
+                associado.setDataAssociacao(d1);
+                daoBen.update(t2);
+                daoBen.update(t1);
+            } else {
+                associado.setDataAssociacao(d2);
+                daoBen.update(t1);
+                daoBen.update(t2);
+            }
         } else {
-            associado.setDataAssociacao(d2);
-            daoBen.update(t1);
-            daoBen.update(t2);
+            associado.setDataAssociacao(DateUtil.toDate(modeloBenef.getDataAdesao()));
+            daoBen.update(modeloBenef);
         }
     }
 }

@@ -32,6 +32,7 @@ public class CargaEntidadeUsuario {
             Long idParticipante, Long idUserTitular) {
 
         usuarioPlano = new UsuarioPlano();
+        this.setType(modeloBenef);
         usuarioPlano.setIndTitularResponsavelPagamento(indTituRespPag);
         usuarioPlano.setIdParticipante(idParticipante);
         usuarioPlano.setIdUsuarioTitularPlano(idUserTitular);
@@ -50,6 +51,28 @@ public class CargaEntidadeUsuario {
         return usuarioPlanoDAO.save(usuarioPlano);
     }
 
+    private void setType(TempBenPASA modeloBenef) {
+        if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase("A")) {
+            usuarioPlano.setIdTipoUsario(0L);
+            usuarioPlano.setStatusUsuario(1);
+            return;
+        }
+        if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase("B")) {
+            usuarioPlano.setIdTipoUsario(0L);
+            usuarioPlano.setStatusUsuario(2);
+            return;
+        }
+        if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase("D")) {
+            usuarioPlano.setIdTipoUsario(1L);
+            usuarioPlano.setStatusUsuario(1);
+            return;
+        }
+        if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase("G")) {
+            usuarioPlano.setIdTipoUsario(2L);
+            usuarioPlano.setStatusUsuario(1);
+        }
+    }
+
     private Long newAdesao(TempBenPASA modeloBenef, Long idAssoc) {
         Adesao adesao = new Adesao();
         adesao.setIdAssociado(idAssoc);
@@ -60,7 +83,7 @@ public class CargaEntidadeUsuario {
             return null;
         }
         adesao.setIdUsuario(CargaPasaCommon.USER_CARGA);
-        adesao.setDataInclusaoSistema(DateUtil.obterDataAtual());
+        adesao.setDataInclusaoSistema(DateUtil.toDate(modeloBenef.getDataAdesao()));
         return adesaoPlanoDAO.save(adesao);
     }
 

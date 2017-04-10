@@ -20,7 +20,7 @@ public class PlanoDAOImpl {
 
     public Long getId(String extCod) {
         Long id = null;
-        String sql = "SELECT * FROM PLANO WHERE cd_plano = '" + extCod + "'";
+        String sql = "SELECT * FROM PLANO WHERE cd_plano = '" + extCod + "' and id_contrato = 64";
         Statement stmt = null;
         ResultSet rs = null;
         try {

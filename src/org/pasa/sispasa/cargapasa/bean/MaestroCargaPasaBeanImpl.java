@@ -24,7 +24,7 @@ public class MaestroCargaPasaBeanImpl {
     }
 
     public void inicio() {
-        //readFiles();
+        //this.readFiles();
         this.mapearEntidades();
     }
 
