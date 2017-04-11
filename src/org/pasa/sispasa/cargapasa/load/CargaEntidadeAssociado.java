@@ -65,7 +65,7 @@ public class CargaEntidadeAssociado {
             this.setAtributos(modeloBenef);
 
             //MATRICULAS
-            associado.setMatriculaPasa(modeloBenef.getMatriculaPasa());
+            associado.setMatriculaPasa(modeloBenef.getEmpresa()+modeloBenef.getMatriculaPasa());
             associado.setMatriculaValiaParticipante(modeloBenef.getMatriculaParticipante());
             associado.setMatriculaValiaRepresentante(modeloBenef.getMatriculaRepresentanteLegal());
 

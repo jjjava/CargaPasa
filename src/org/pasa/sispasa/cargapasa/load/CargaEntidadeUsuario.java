@@ -90,4 +90,8 @@ public class CargaEntidadeUsuario {
     private Long getPlano(TempBenPASA modeloBenef) {
         return planoDAO.getId(modeloBenef.getPlano());
     }
+    
+    private void createCarteirinha(TempBenPASA modelo){
+        usuarioPlano.setCarteirinha(modelo.getEmpresa()+modelo.getMatriculaPasa()+modelo.getCodBeneficiario());
+    }
 }

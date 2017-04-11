@@ -18,6 +18,7 @@ public class UsuarioPlano {
     private Long idUsuarioTitularPlano;
     private Long idTipoUsario;
     private Long idGrauParentesco;
+    private String carteirinha;
     
     public UsuarioPlano(){
     }
@@ -100,5 +101,13 @@ public class UsuarioPlano {
 
     public void setIdGrauParentesco(Long idGrauParentesco) {
         this.idGrauParentesco = idGrauParentesco;
+    }
+
+    public String getCarteirinha() {
+        return carteirinha;
+    }
+
+    public void setCarteirinha(String carteirinha) {
+        this.carteirinha = carteirinha;
     }
 }

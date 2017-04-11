@@ -35,7 +35,8 @@ public class UsuarioPlanoDAOImpl {
                     + ",ID_GRAU_PARENT"
                     + ",STATUS_USUARIO"
                     + ",DT_INCLUSAO_SISTEMA"
-                    + ",ID_USUARIO) VALUES (?,?,?,?,?,?,?,?,?)";
+                    + ",ID_USUARIO"
+                    + ",CARTEIRINHA) VALUES (?,?,?,?,?,?,?,?,?,?)";
             
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
@@ -48,6 +49,7 @@ public class UsuarioPlanoDAOImpl {
             ps.setInt(7, up.getStatusUsuario());
             ps.setDate(8, new java.sql.Date(up.getDataInclusaoSistema().getTime()));
             ps.setLong(9, CargaPasaCommon.USER_CARGA);
+            ps.setString(10, up.getCarteirinha());
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
