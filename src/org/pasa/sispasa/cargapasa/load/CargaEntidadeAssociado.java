@@ -79,22 +79,25 @@ public class CargaEntidadeAssociado {
             //CRIAR ADESAO
             // Long idAdesao = newAdesao(modeloBenef, idParticipante);
             //CRIAR USUARIO PLANO
-            cargaEntidadeUsuario.newUsuarioPlano(modeloBenef, CargaPasaCommon.VERDADEIRO,
-                    idParticipante, idParticipante);
-
+            // cargaEntidadeUsuario.newUsuarioPlano(modeloBenef, CargaPasaCommon.VERDADEIRO, idParticipante, idParticipante);
             //AGREGADOs E USUARIOs
             this.agregadosUsuarios(modeloBenef, idParticipante);
-
         }
     }
 
     private void agregadosUsuarios(TempBenPASA modeloBenef, Long idAssoc) {
-        List<TempBenPASA> list = tempBenPasaDAO.getUsuarios(modeloBenef.getEmpresa(), modeloBenef.getMatricula());
 
+        List<TempBenPASA> list = tempBenPasaDAO.getUsuariosTitulares(modeloBenef.getEmpresaOrigem(), modeloBenef.getMatriculaOrigem(), modeloBenef.getTipoBeneficiario());
         for (TempBenPASA t : list) {
-            Long idParticipante = cargaEntidadeParticipante.newParticipante(t);
+            cargaEntidadeUsuario.newUsuarioPlano(t, CargaPasaCommon.VERDADEIRO,
+                    idAssoc, idAssoc);
+        }
+
+        List<TempBenPASA> list2 = tempBenPasaDAO.getUsuarios(modeloBenef.getEmpresaOrigem(), modeloBenef.getMatriculaOrigem());
+        for (TempBenPASA t2 : list2) {
+            Long idParticipante = cargaEntidadeParticipante.newParticipante(t2);
             if (null != idParticipante) {
-                cargaEntidadeUsuario.newUsuarioPlano(modeloBenef, CargaPasaCommon.VERDADEIRO,
+                cargaEntidadeUsuario.newUsuarioPlano(t2, CargaPasaCommon.VERDADEIRO,
                         idParticipante, idAssoc);
             }
         }
@@ -126,7 +129,7 @@ public class CargaEntidadeAssociado {
 
     private void findDataAssociacao(TempBenPASA modeloBenef) {
 
-        List<TempBenPASA> list = daoBen.getTitular(modeloBenef.getEmpresa(), modeloBenef.getMatriculaOrigem());
+        List<TempBenPASA> list = daoBen.getTitular(modeloBenef.getEmpresa(), modeloBenef.getMatriculaOrigem(), modeloBenef.getTipoBeneficiario());
 
         if (list.size() > 1) {
             TempBenPASA t1 = list.get(0);

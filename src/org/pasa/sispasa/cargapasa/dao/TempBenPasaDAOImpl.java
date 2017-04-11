@@ -369,10 +369,10 @@ public class TempBenPasaDAOImpl {
         return modelo;
     }
 
-    public List<TempBenPASA> getTitular(String empresa, String matriculaOrigem) {
+    public List<TempBenPASA> getTitular(String empresa, String matriculaOrigem, String tipo) {
         List<TempBenPASA> modelos = new ArrayList<>();
         String sql = "select * from TB_TEMP_BEN_PASA where empresaOrigem = '" + empresa
-                + "' and matriculaOrigem = '" + matriculaOrigem + "'";
+                + "' and matriculaOrigem = '" + matriculaOrigem + "' and tipoBeneficiario ='" + tipo + "'";
         Statement stmt = null;
         ResultSet rs = null;
 
@@ -461,9 +461,98 @@ public class TempBenPasaDAOImpl {
     public List<TempBenPASA> getUsuarios(String empresa, String matricula) {
         List<TempBenPASA> modelos = new ArrayList<>();
         String sql = "select * from TB_TEMP_BEN_PASA where empresaOrigem = '" + empresa
-                + "' and matriculaOrigem = '" + matricula + "'";
+                + "' and matriculaOrigem = '" + matricula + "' and tipoBeneficiario not in('A','B')";
         Statement stmt = null;
         ResultSet rs = null;
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                TempBenPASA modelo = new TempBenPASA();
+                modelo.setId(rs.getLong("id"));
+                modelo.setEmpresa(rs.getString("empresa"));
+                modelo.setMatricula(rs.getString("matricula"));
+                modelo.setCodBeneficiario(rs.getString("codBeneficiario"));
+                modelo.setDireitoAMSCredenciamento(rs.getString("direitoAMSCredenciamento"));
+                modelo.setDataValidadeCredenciado(rs.getString("dataValidadeCredenciado"));
+                modelo.setDireitoAmsReembolso(rs.getString("direitoAmsReembolso"));
+                modelo.setDataValidadeReembolso(rs.getString("dataValidadeReembolso"));
+                modelo.setDataDeAtualizacao(rs.getString("dataDeAtualizacao"));
+                modelo.setNomeBeneficiarioAbreviado(rs.getString("nomeBeneficiarioAbreviado"));
+                modelo.setCodigoCR(rs.getString("codigoCR"));
+                modelo.setOrgaoPessoal(rs.getString("orgaoPessoal"));
+                modelo.setVinculo(rs.getString("vinculo"));
+                modelo.setPlano(rs.getString("plano"));
+                modelo.setFaixaNivel(rs.getString("faixaNivel"));
+                modelo.setDataNascimento(rs.getString("dataNascimento"));
+                modelo.setDireitoAbaterIR(rs.getString("direitoAbaterIR"));
+                modelo.setNucleoDaAms(rs.getString("nucleoDaAms"));
+                modelo.setAgenciaBancaria(rs.getString("agenciaBancaria"));
+                modelo.setBanco(rs.getString("banco"));
+                modelo.setContaCorrente(rs.getString("contaCorrente"));
+                modelo.setDataAdmissao(rs.getString("dataAdmissao"));
+                modelo.setGrauParentesco(rs.getString("grauParentesco"));
+                modelo.setFinanceira(rs.getString("financeira"));
+                modelo.setContratoTrabalho(rs.getString("contratoTrabalho"));
+                modelo.setSexo(rs.getString("sexo"));
+                modelo.setEmpresaAtualizador(rs.getString("empresaAtualizador"));
+                modelo.setMatriculaAtulizador(rs.getString("matriculaAtualizador"));
+                modelo.setTipoBeneficiario(rs.getString("tipoBeneficiario"));
+                modelo.setCodigoDireitoPasa(rs.getString("codigoDireitoPasa"));
+                modelo.setGrauEscolaridade(rs.getString("grauEscolaridade"));
+                modelo.setIndicadorConclusao(rs.getString("indicadorConclusao"));
+                modelo.setDataFalecimento(rs.getString("dataFalecimento"));
+                modelo.setMatriculaPasa(rs.getString("matriculaPasa"));
+                modelo.setNomeDaMae(rs.getString("nomeDaMae"));
+                modelo.setPis(rs.getString("pis"));
+                modelo.setCpf(rs.getString("cpf"));
+                modelo.setEmpresaOrigem(rs.getString("empresaOrigem"));
+                modelo.setMatriculaOrigem(rs.getString("matriculaOrigem"));
+                modelo.setEmpresaPeople(rs.getString("empresaPeople"));
+                modelo.setMatriculaPeople(rs.getString("matriculaPeople"));
+                modelo.setUnidadeDeControle(rs.getString("unidadeDeControle"));
+                modelo.setCentroDeCusto(rs.getString("centroDeCusto"));
+                modelo.setMatriculaParticipante(rs.getString("matriculaParticipante"));
+                modelo.setMatriculaRepresentanteLegal(rs.getString("matriculaRepresentanteLegal"));
+                modelo.setCategoriaPASA(rs.getString("categoriaPASA"));
+                modelo.setDataAdesao(rs.getString("dataAdesao"));
+                modelo.setDataInicioCarencia(rs.getString("dataInicioCarencia"));
+                modelo.setDataFimCarencia(rs.getString("dataFimCarencia"));
+                modelo.setNomeCompleto(rs.getString("nomeCompleto"));
+                modelo.setDiasDeCarencia(rs.getString("diasDeCarencia"));
+                modelo.setCodigoNacionalDeSaude(rs.getString("codigoNacionalDeSaude"));
+                modelo.setDeclaracaoNascidoVivo(rs.getString("declaracaoNascidoVivo"));
+
+                modelos.add(modelo);//ADD NA LISTA
+            }
+        } catch (SQLException ex) {
+            System.err.println(this.getClass().getName() + ":\n" + ex);
+        } finally {
+            if (null != rs) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                }
+            }
+            if (null != stmt) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                }
+            }
+        }
+        return modelos;
+    }
+
+    public List<TempBenPASA> getUsuariosTitulares(String empresaOrigem, String matriculaOrigem, String tipo) {
+        List<TempBenPASA> modelos = new ArrayList<>();
+        String sql = "select * from TB_TEMP_BEN_PASA where empresaOrigem = '" + empresaOrigem
+                + "' and matriculaOrigem = '" + matriculaOrigem + "' and tipoBeneficiario ='" + tipo + "'";
+        Statement stmt = null;
+        ResultSet rs = null;
+
         try {
             stmt = conn.createStatement();
             rs = stmt.executeQuery(sql);
@@ -728,7 +817,7 @@ public class TempBenPasaDAOImpl {
                     + "," + MapaCampos.DIAS_DE_CARENCIA
                     + "," + MapaCampos.CODIGO_NACIONAL_SAUDE
                     + "," + MapaCampos.DECLARACAO_NASCIDO_VIVO
-                    + ", OK" 
+                    + ", OK"
                     + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             ps = conn.prepareStatement(sql);
