@@ -461,7 +461,7 @@ public class TempBenPasaDAOImpl {
     public List<TempBenPASA> getUsuarios(String empresa, String matricula) {
         List<TempBenPASA> modelos = new ArrayList<>();
         String sql = "select * from TB_TEMP_BEN_PASA where empresaOrigem = '" + empresa
-                + "' and matriculaOrigem = '" + matricula + "' and tipoBeneficiario not in('A','B')";
+                + "' and matricula = '" + matricula + "' and tipoBeneficiario not in('A','B')";
         Statement stmt = null;
         ResultSet rs = null;
         try {

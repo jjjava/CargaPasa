@@ -65,7 +65,7 @@ public class CargaEntidadeAssociado {
             this.setAtributos(modeloBenef);
 
             //MATRICULAS
-            associado.setMatriculaPasa(modeloBenef.getEmpresa()+modeloBenef.getMatriculaPasa());
+            associado.setMatriculaPasa(modeloBenef.getEmpresa() + modeloBenef.getMatriculaPasa());
             associado.setMatriculaValiaParticipante(modeloBenef.getMatriculaParticipante());
             associado.setMatriculaValiaRepresentante(modeloBenef.getMatriculaRepresentanteLegal());
 
@@ -76,41 +76,23 @@ public class CargaEntidadeAssociado {
             //SALVAR ASSOCIADO
             associadoDAO.salve(associado);
 
-            //CRIAR ADESAO
-            // Long idAdesao = newAdesao(modeloBenef, idParticipante);
-            //CRIAR USUARIO PLANO
-            // cargaEntidadeUsuario.newUsuarioPlano(modeloBenef, CargaPasaCommon.VERDADEIRO, idParticipante, idParticipante);
             //AGREGADOs E USUARIOs
             this.agregadosUsuarios(modeloBenef, idParticipante);
         }
     }
 
     private void agregadosUsuarios(TempBenPASA modeloBenef, Long idAssoc) {
-
-        List<TempBenPASA> list = tempBenPasaDAO.getUsuariosTitulares(modeloBenef.getEmpresaOrigem(), modeloBenef.getMatriculaOrigem(), modeloBenef.getTipoBeneficiario());
-        for (TempBenPASA t : list) {
-            cargaEntidadeUsuario.newUsuarioPlano(t, CargaPasaCommon.VERDADEIRO,
-                    idAssoc, idAssoc);
-        }
-
-        List<TempBenPASA> list2 = tempBenPasaDAO.getUsuarios(modeloBenef.getEmpresaOrigem(), modeloBenef.getMatriculaOrigem());
-        for (TempBenPASA t2 : list2) {
-            Long idParticipante = cargaEntidadeParticipante.newParticipante(t2);
-            if (null != idParticipante) {
-                cargaEntidadeUsuario.newUsuarioPlano(t2, CargaPasaCommon.VERDADEIRO,
-                        idParticipante, idAssoc);
+        List<TempBenPASA> listaUsuariosTitulares = tempBenPasaDAO.getUsuariosTitulares(modeloBenef.getEmpresaOrigem(), modeloBenef.getMatriculaOrigem(), modeloBenef.getTipoBeneficiario());
+        for (TempBenPASA usuarioTitular : listaUsuariosTitulares) {
+            Long idUsuarioTitular = cargaEntidadeUsuario.newUsuarioPlano(usuarioTitular, CargaPasaCommon.VERDADEIRO, idAssoc);
+            List<TempBenPASA> listaUsuariosAgregados = tempBenPasaDAO.getUsuarios(usuarioTitular.getEmpresaOrigem(), usuarioTitular.getMatriculaOrigem());
+            for (TempBenPASA usuarioAgreado : listaUsuariosAgregados) {
+                Long idParticipante = cargaEntidadeParticipante.newParticipante(usuarioAgreado);
+                if (null != idParticipante) {
+                    cargaEntidadeUsuario.newUsuarioPlano(usuarioAgreado, CargaPasaCommon.VERDADEIRO, idParticipante, idUsuarioTitular);
+                }
             }
         }
-    }
-
-    private Long newAdesao(TempBenPASA modeloBenef, Long idAssoc) {
-        Adesao adesao = new Adesao();
-        adesao.setIdAssociado(idAssoc);
-        Long idPlano = getPlano(modeloBenef);
-        adesao.setIdPlano(idPlano);
-        adesao.setIdUsuario(CargaPasaCommon.USER_CARGA);
-        adesao.setDataInclusaoSistema(DateUtil.obterDataAtual());
-        return adesaoPlanoDAO.save(adesao);
     }
 
     private Long getPlano(TempBenPASA modeloBenef) {

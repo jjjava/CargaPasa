@@ -28,6 +28,10 @@ public class CargaEntidadeUsuario {
         this.usuarioPlanoDAO = new UsuarioPlanoDAOImpl();
     }
 
+    public Long newUsuarioPlano(TempBenPASA modeloBenef, Integer indTituRespPag, Long idParticipante) {
+        return newUsuarioPlano(modeloBenef, indTituRespPag, idParticipante, null);
+    }
+
     public Long newUsuarioPlano(TempBenPASA modeloBenef, Integer indTituRespPag,
             Long idParticipante, Long idUserTitular) {
 
@@ -91,8 +95,8 @@ public class CargaEntidadeUsuario {
     private Long getPlano(TempBenPASA modeloBenef) {
         return planoDAO.getId(modeloBenef.getPlano());
     }
-    
-    private void createCarteirinha(TempBenPASA modelo){
-        usuarioPlano.setCarteirinha(modelo.getEmpresa()+modelo.getMatriculaPasa()+modelo.getCodBeneficiario());
+
+    private void createCarteirinha(TempBenPASA modelo) {
+        usuarioPlano.setCarteirinha(modelo.getEmpresa() + modelo.getMatriculaPasa() + modelo.getCodBeneficiario());
     }
 }

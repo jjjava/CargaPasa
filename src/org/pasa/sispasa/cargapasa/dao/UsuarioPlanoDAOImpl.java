@@ -1,4 +1,3 @@
-
 package org.pasa.sispasa.cargapasa.dao;
 
 import java.sql.Connection;
@@ -37,14 +36,18 @@ public class UsuarioPlanoDAOImpl {
                     + ",DT_INCLUSAO_SISTEMA"
                     + ",ID_USUARIO"
                     + ",CARTEIRINHA) VALUES (?,?,?,?,?,?,?,?,?,?)";
-            
+
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
+
             ps.setInt(1, up.getIndTitularResponsavelPagamento());
             ps.setLong(2, up.getIdParticipante());
             ps.setLong(3, up.getIdAdesaoPlano());
             ps.setLong(4, up.getIdUsuarioTitularPlano());
-            ps.setLong(5, up.getIdTipoUsario());
+            if (null != up.getIdTipoUsario()) {
+                ps.setLong(5, up.getIdTipoUsario());
+            } else {
+                ps.setNull(5, java.sql.Types.BIGINT);
+            }
             ps.setLong(6, up.getIdGrauParentesco());
             ps.setInt(7, up.getStatusUsuario());
             ps.setDate(8, new java.sql.Date(up.getDataInclusaoSistema().getTime()));
