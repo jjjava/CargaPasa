@@ -33,6 +33,7 @@ public class CargaEntidadeUsuario {
 
         usuarioPlano = new UsuarioPlano();
         this.setType(modeloBenef);
+        this.createCarteirinha(modeloBenef);
         usuarioPlano.setIndTitularResponsavelPagamento(indTituRespPag);
         usuarioPlano.setIdParticipante(idParticipante);
         usuarioPlano.setIdUsuarioTitularPlano(idUserTitular);
