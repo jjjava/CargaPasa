@@ -28,12 +28,12 @@ public class CargaEntidadeUsuario {
         this.usuarioPlanoDAO = new UsuarioPlanoDAOImpl();
     }
 
-    public Long newUsuarioPlano(TempBenPASA modeloBenef, Integer indTituRespPag, Long idParticipante) {
-        return newUsuarioPlano(modeloBenef, indTituRespPag, idParticipante, null);
+    public Long newUsuarioPlano(TempBenPASA modeloBenef, Integer indTituRespPag, Long idParticipante, Long idAdesao) {
+        return newUsuarioPlano(modeloBenef, indTituRespPag, idParticipante,idAdesao, null);
     }
 
     public Long newUsuarioPlano(TempBenPASA modeloBenef, Integer indTituRespPag,
-            Long idParticipante, Long idUserTitular) {
+            Long idParticipante, Long idAdesao,Long idUserTitular) {
 
         usuarioPlano = new UsuarioPlano();
         this.setType(modeloBenef);
@@ -41,9 +41,7 @@ public class CargaEntidadeUsuario {
         usuarioPlano.setIndTitularResponsavelPagamento(indTituRespPag);
         usuarioPlano.setIdParticipante(idParticipante);
         usuarioPlano.setIdUsuarioTitularPlano(idUserTitular);
-
-        //ADESAO
-        usuarioPlano.setIdAdesaoPlano(newAdesao(modeloBenef, idUserTitular));
+        usuarioPlano.setIdAdesaoPlano(idAdesao);
 
         Long idGP = grauParentescoDAO.getId(modeloBenef.getGrauParentesco());
         if (null != idGP) {
@@ -77,25 +75,7 @@ public class CargaEntidadeUsuario {
             usuarioPlano.setStatusUsuario(1);
         }
     }
-
-    private Long newAdesao(TempBenPASA modeloBenef, Long idAssoc) {
-        Adesao adesao = new Adesao();
-        adesao.setIdAssociado(idAssoc);
-        Long idPlano = getPlano(modeloBenef);
-        if (null != idPlano) {
-            adesao.setIdPlano(idPlano);
-        } else {
-            return null;
-        }
-        adesao.setIdUsuario(CargaPasaCommon.USER_CARGA);
-        adesao.setDataInclusaoSistema(DateUtil.toDate(modeloBenef.getDataAdesao()));
-        return adesaoPlanoDAO.save(adesao);
-    }
-
-    private Long getPlano(TempBenPASA modeloBenef) {
-        return planoDAO.getId(modeloBenef.getPlano());
-    }
-
+    
     private void createCarteirinha(TempBenPASA modelo) {
         usuarioPlano.setCarteirinha(modelo.getEmpresa() + modelo.getMatriculaPasa() + modelo.getCodBeneficiario());
     }

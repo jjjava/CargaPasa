@@ -42,12 +42,8 @@ public class UsuarioPlanoDAOImpl {
             ps.setInt(1, up.getIndTitularResponsavelPagamento());
             ps.setLong(2, up.getIdParticipante());
             ps.setLong(3, up.getIdAdesaoPlano());
-            ps.setLong(4, up.getIdUsuarioTitularPlano());
-            if (null != up.getIdTipoUsario()) {
-                ps.setLong(5, up.getIdTipoUsario());
-            } else {
-                ps.setNull(5, java.sql.Types.BIGINT);
-            }
+            ps.setString(4, up.getIdUsuarioTitularPlano() == null ? null : up.getIdUsuarioTitularPlano().toString());
+            ps.setLong(5, up.getIdTipoUsario());
             ps.setLong(6, up.getIdGrauParentesco());
             ps.setInt(7, up.getStatusUsuario());
             ps.setDate(8, new java.sql.Date(up.getDataInclusaoSistema().getTime()));

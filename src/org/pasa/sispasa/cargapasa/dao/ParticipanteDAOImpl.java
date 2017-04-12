@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import org.pasa.sispasa.cargapasa.connection.SQLServerConnection;
 import org.pasa.sispasa.cargapasa.model.Participante;
 
@@ -18,6 +19,43 @@ public class ParticipanteDAOImpl {
 
     public ParticipanteDAOImpl() {
         conn = SQLServerConnection.getConnectionPipe();
+    }
+
+    public Long getIdByNomeNomeMaeDataNascimento(String nome, String nomeMae, Date nascimento) {
+        Long id = null;
+
+        String sql = "select id_participante from participante where nome = ? and nm_mae = ?"+
+                 " and dt_nascimento =?";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, nome);
+            stmt.setString(2, nomeMae);
+            stmt.setDate(3,new java.sql.Date(nascimento.getTime()));
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                id = rs.getLong("ID_PARTICIPANTE");
+            }
+        } catch (SQLException ex) {
+            System.err.println(this.getClass().getName() + ":\n" + ex);
+        } finally {
+            if (null != rs) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                }
+            }
+            if (null != stmt) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                }
+            }
+        }
+        return id;
     }
 
     public Long save(Participante modelo) {

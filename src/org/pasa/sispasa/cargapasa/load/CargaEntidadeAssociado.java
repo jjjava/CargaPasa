@@ -6,6 +6,7 @@ import org.pasa.sispasa.cargapasa.dao.AdesaoPlanoDAOImpl;
 import org.pasa.sispasa.cargapasa.dao.AssociadoDAOImpl;
 import org.pasa.sispasa.cargapasa.dao.EmpresaDAOImpl;
 import org.pasa.sispasa.cargapasa.dao.FuncionarioDAOImpl;
+import org.pasa.sispasa.cargapasa.dao.ParticipanteDAOImpl;
 import org.pasa.sispasa.cargapasa.dao.PessoaDAOImpl;
 import org.pasa.sispasa.cargapasa.dao.PlanoDAOImpl;
 import org.pasa.sispasa.cargapasa.dao.TempBenPasaDAOImpl;
@@ -32,6 +33,7 @@ public class CargaEntidadeAssociado {
     private final FuncionarioDAOImpl funcionarioDAO;
     private final CargaEntidadeUsuario cargaEntidadeUsuario;
     private final CargaEntidadeParticipante cargaEntidadeParticipante;
+    private final ParticipanteDAOImpl participanteDAO;
 
     public CargaEntidadeAssociado() {
         this.planoDAO = new PlanoDAOImpl();
@@ -44,6 +46,7 @@ public class CargaEntidadeAssociado {
         this.cargaEntidadeUsuario = new CargaEntidadeUsuario();
         this.cargaEntidadeParticipante = new CargaEntidadeParticipante();
         this.daoBen = new TempBenPasaDAOImpl();
+        this.participanteDAO = new ParticipanteDAOImpl();
     }
 
     public void newAssociado(TempBenPASA modeloBenef, String tpAssociado) {
@@ -84,12 +87,23 @@ public class CargaEntidadeAssociado {
     private void agregadosUsuarios(TempBenPASA modeloBenef, Long idAssoc) {
         List<TempBenPASA> listaUsuariosTitulares = tempBenPasaDAO.getUsuariosTitulares(modeloBenef.getEmpresaOrigem(), modeloBenef.getMatriculaOrigem(), modeloBenef.getTipoBeneficiario());
         for (TempBenPASA usuarioTitular : listaUsuariosTitulares) {
-            Long idUsuarioTitular = cargaEntidadeUsuario.newUsuarioPlano(usuarioTitular, CargaPasaCommon.VERDADEIRO, idAssoc);
-            List<TempBenPASA> listaUsuariosAgregados = tempBenPasaDAO.getUsuarios(usuarioTitular.getEmpresaOrigem(), usuarioTitular.getMatriculaOrigem());
-            for (TempBenPASA usuarioAgreado : listaUsuariosAgregados) {
-                Long idParticipante = cargaEntidadeParticipante.newParticipante(usuarioAgreado);
-                if (null != idParticipante) {
-                    cargaEntidadeUsuario.newUsuarioPlano(usuarioAgreado, CargaPasaCommon.VERDADEIRO, idParticipante, idUsuarioTitular);
+            Long idAdesaoTitular = this.newAdesao(usuarioTitular, idAssoc);
+            Long idUsuarioTitular = cargaEntidadeUsuario.newUsuarioPlano(usuarioTitular, CargaPasaCommon.VERDADEIRO, idAssoc, idAdesaoTitular);
+
+            List<TempBenPASA> listaUsuariosAgregados = tempBenPasaDAO.getUsuarios(usuarioTitular.getEmpresaOrigem(), usuarioTitular.getMatricula());
+            if (null != listaUsuariosAgregados) {
+                for (TempBenPASA usuarioAgreado : listaUsuariosAgregados) {
+                    Long idAdessaoUsuarioAgreado = this.newAdesao(usuarioAgreado, idAssoc);
+                    Long idParticipante = participanteDAO.getIdByNomeNomeMaeDataNascimento(
+                            usuarioAgreado.getNomeCompleto(), usuarioAgreado.getNomeDaMae(), 
+                            DateUtil.toDate(usuarioAgreado.getDataNascimento()));
+                    if(null != idParticipante){
+                        System.out.println("reuso");
+                        cargaEntidadeUsuario.newUsuarioPlano(usuarioAgreado, CargaPasaCommon.VERDADEIRO, idParticipante, idAdessaoUsuarioAgreado, idUsuarioTitular);                        
+                    }else{
+                        idParticipante = cargaEntidadeParticipante.newParticipante(usuarioAgreado);
+                        cargaEntidadeUsuario.newUsuarioPlano(usuarioAgreado, CargaPasaCommon.VERDADEIRO, idParticipante, idAdessaoUsuarioAgreado, idUsuarioTitular);
+                    }
                 }
             }
         }
@@ -97,6 +111,20 @@ public class CargaEntidadeAssociado {
 
     private Long getPlano(TempBenPASA modeloBenef) {
         return planoDAO.getId(modeloBenef.getPlano());
+    }
+
+    private Long newAdesao(TempBenPASA modeloBenef, Long idAssoc) {
+        Adesao adesao = new Adesao();
+        adesao.setIdAssociado(idAssoc);
+        Long idPlano = getPlano(modeloBenef);
+        if (null != idPlano) {
+            adesao.setIdPlano(idPlano);
+        } else {
+            return null;
+        }
+        adesao.setIdUsuario(CargaPasaCommon.USER_CARGA);
+        adesao.setDataInclusaoSistema(DateUtil.toDate(modeloBenef.getDataAdesao()));
+        return adesaoPlanoDAO.save(adesao);
     }
 
     private void setAtributos(TempBenPASA modeloBenef) {
