@@ -2,7 +2,9 @@ package org.pasa.sispasa.cargapasa.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import org.pasa.sispasa.cargapasa.connection.SQLServerConnection;
 import org.pasa.sispasa.cargapasa.model.Associado;
 
@@ -59,5 +61,38 @@ public class AssociadoDAOImpl {
         } catch (SQLException ex) {
             System.err.println(this.getClass().getName() + "\n" + ex);
         }
+    }
+
+    public boolean verificaAssociadoByIdFunc(Long idFunc) {
+        boolean existe = false;
+        String sql = "select * from associado where associado.ID_FUNCIONARIO = " + idFunc + "";
+
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                existe = true;
+            }
+        } catch (SQLException ex) {
+            System.err.println(this.getClass().getName() + ":\n" + ex);
+        } finally {
+            if (null != rs) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                }
+            }
+            if (null != stmt) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                }
+            }
+        }
+        return existe;
     }
 }

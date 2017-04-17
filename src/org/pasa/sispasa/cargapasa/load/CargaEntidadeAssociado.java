@@ -53,34 +53,38 @@ public class CargaEntidadeAssociado {
 
         Long idFuncionario = funcionarioDAO.getIdByMatriculaOrgiem(modeloBenef.getMatriculaOrigem(), modeloBenef.getEmpresaOrigem());
         if (null != idFuncionario) {
+
             System.out.println("Achou Funcionario: " + idFuncionario);
-            associado = new Associado();
-            associado.setIdFuncionario(idFuncionario);
-            associado.setTipoAssociado(tpAssociado);
 
-            //CRIAR PARTICIPANTE
-            Long idParticipante = cargaEntidadeParticipante.newParticipante(modeloBenef);
-            if (null != idParticipante) {
-                associado.setIdParticipante(idParticipante);
+            if (!associadoDAO.verificaAssociadoByIdFunc(idFuncionario)) {
+                associado = new Associado();
+                associado.setIdFuncionario(idFuncionario);
+                associado.setTipoAssociado(tpAssociado);
+
+                //CRIAR PARTICIPANTE
+                Long idParticipante = cargaEntidadeParticipante.newParticipante(modeloBenef);
+                if (null != idParticipante) {
+                    associado.setIdParticipante(idParticipante);
+                }
+
+                //ATRIBUTOS
+                this.setAtributos(modeloBenef);
+
+                //MATRICULAS
+                associado.setMatriculaPasa(modeloBenef.getEmpresa() + modeloBenef.getMatriculaPasa());
+                associado.setMatriculaValiaParticipante(modeloBenef.getMatriculaParticipante());
+                associado.setMatriculaValiaRepresentante(modeloBenef.getMatriculaRepresentanteLegal());
+
+                //CARGA
+                associado.setId(CargaPasaCommon.USER_CARGA);
+                associado.setDataUltimaAlteracao(DateUtil.obterDataAtual());
+
+                //SALVAR ASSOCIADO
+                associadoDAO.salve(associado);
+
+                //AGREGADOs E USUARIOs
+                this.agregadosUsuarios(modeloBenef, idParticipante);
             }
-
-            //ATRIBUTOS
-            this.setAtributos(modeloBenef);
-
-            //MATRICULAS
-            associado.setMatriculaPasa(modeloBenef.getEmpresa() + modeloBenef.getMatriculaPasa());
-            associado.setMatriculaValiaParticipante(modeloBenef.getMatriculaParticipante());
-            associado.setMatriculaValiaRepresentante(modeloBenef.getMatriculaRepresentanteLegal());
-
-            //CARGA
-            associado.setId(CargaPasaCommon.USER_CARGA);
-            associado.setDataUltimaAlteracao(DateUtil.obterDataAtual());
-
-            //SALVAR ASSOCIADO
-            associadoDAO.salve(associado);
-
-            //AGREGADOs E USUARIOs
-            this.agregadosUsuarios(modeloBenef, idParticipante);
         }
     }
 
@@ -95,12 +99,12 @@ public class CargaEntidadeAssociado {
                 for (TempBenPASA usuarioAgreado : listaUsuariosAgregados) {
                     Long idAdessaoUsuarioAgreado = this.newAdesao(usuarioAgreado, idAssoc);
                     Long idParticipante = participanteDAO.getIdByNomeNomeMaeDataNascimento(
-                            usuarioAgreado.getNomeCompleto(), usuarioAgreado.getNomeDaMae(), 
+                            usuarioAgreado.getNomeCompleto(), usuarioAgreado.getNomeDaMae(),
                             DateUtil.toDate(usuarioAgreado.getDataNascimento()));
-                    if(null != idParticipante){
+                    if (null != idParticipante) {
                         System.out.println("reuso");
-                        cargaEntidadeUsuario.newUsuarioPlano(usuarioAgreado, CargaPasaCommon.VERDADEIRO, idParticipante, idAdessaoUsuarioAgreado, idUsuarioTitular);                        
-                    }else{
+                        cargaEntidadeUsuario.newUsuarioPlano(usuarioAgreado, CargaPasaCommon.VERDADEIRO, idParticipante, idAdessaoUsuarioAgreado, idUsuarioTitular);
+                    } else {
                         idParticipante = cargaEntidadeParticipante.newParticipante(usuarioAgreado);
                         cargaEntidadeUsuario.newUsuarioPlano(usuarioAgreado, CargaPasaCommon.VERDADEIRO, idParticipante, idAdessaoUsuarioAgreado, idUsuarioTitular);
                     }

@@ -4,7 +4,6 @@ import org.pasa.sispasa.cargapasa.dao.AdesaoPlanoDAOImpl;
 import org.pasa.sispasa.cargapasa.dao.GrauParentescoDAOImpl;
 import org.pasa.sispasa.cargapasa.dao.PlanoDAOImpl;
 import org.pasa.sispasa.cargapasa.dao.UsuarioPlanoDAOImpl;
-import org.pasa.sispasa.cargapasa.model.Adesao;
 import org.pasa.sispasa.cargapasa.model.UsuarioPlano;
 import org.pasa.sispasa.cargapasa.util.CargaPasaCommon;
 import org.pasa.sispasa.cargapasa.util.DateUtil;
