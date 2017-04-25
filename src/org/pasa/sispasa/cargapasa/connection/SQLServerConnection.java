@@ -22,11 +22,11 @@ public class SQLServerConnection {
         }
         try {
             conn = DriverManager.getConnection("jdbc:jtds:sqlserver:"
-                    //+ "//192.168.232.25:1433;"
-                    + "//127.0.0.1:1433;"
-                    + "instance=PASA;"
-                    + "DatabaseName=sispasa;",
-                    "pasa", "pasa");
+                    +"//192.168.232.25:1433;"
+                   // + "//127.0.0.1:1433;"
+                   // + "instance=PASA;"
+                    + "DatabaseName=sispasa-dev;",
+                    "usrsispasadev", "sispasadev");
         } catch (SQLException ex) {
             System.err.println(ex);
         }
