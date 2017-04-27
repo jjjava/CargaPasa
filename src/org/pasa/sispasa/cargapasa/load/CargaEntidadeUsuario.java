@@ -57,21 +57,25 @@ public class CargaEntidadeUsuario {
         if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase("A")) {
             usuarioPlano.setIdTipoUsario(0L);
             usuarioPlano.setStatusUsuario(1);
+            usuarioPlano.setIdVinculo(1L);
             return;
         }
         if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase("B")) {
             usuarioPlano.setIdTipoUsario(0L);
             usuarioPlano.setStatusUsuario(2);
+            usuarioPlano.setIdVinculo(1L);
             return;
         }
         if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase("D")) {
             usuarioPlano.setIdTipoUsario(1L);
             usuarioPlano.setStatusUsuario(1);
+            usuarioPlano.setIdVinculo(2L);
             return;
         }
         if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase("G")) {
             usuarioPlano.setIdTipoUsario(2L);
             usuarioPlano.setStatusUsuario(1);
+            usuarioPlano.setIdVinculo(3L);
         }
     }
     

@@ -18,6 +18,7 @@ public class UsuarioPlano {
     private Long idUsuarioTitularPlano;
     private Long idTipoUsario;
     private Long idGrauParentesco;
+    private Long idVinculo;
     private String carteirinha;
     
     public UsuarioPlano(){
@@ -103,6 +104,14 @@ public class UsuarioPlano {
         this.idGrauParentesco = idGrauParentesco;
     }
 
+    public Long getIdVinculo() {
+        return idVinculo;
+    }
+
+    public void setIdVinculo(Long idVinculo) {
+        this.idVinculo = idVinculo;
+    }
+    
     public String getCarteirinha() {
         return carteirinha;
     }
