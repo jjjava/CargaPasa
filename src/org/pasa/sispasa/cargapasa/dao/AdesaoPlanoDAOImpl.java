@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import org.pasa.sispasa.cargapasa.connection.SQLServerConnection;
-import org.pasa.sispasa.cargapasa.model.Adesao;
+import org.pasa.sispasa.cargapasa.model.AdesaoUsuario;
 
 /**
  *
@@ -20,7 +20,7 @@ public class AdesaoPlanoDAOImpl {
         this.conn = SQLServerConnection.getConnectionPipe();
     }
 
-    public Long save(Adesao adesao) {
+    public Long save(AdesaoUsuario adesao) {
         Long id = null;
         PreparedStatement ps = null;
         try {

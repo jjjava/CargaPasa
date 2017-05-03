@@ -2,7 +2,6 @@ package org.pasa.sispasa.cargapasa.model;
 
 import java.util.Date;
 import org.pasa.sispasa.cargapasa.enumeration.EnumTipoAposentadoria;
-import org.pasa.sispasa.cargapasa.enumeration.EnumTipoRespPagamento;
 import org.pasa.sispasa.cargapasa.util.CargaPasaCommon;
 import org.pasa.sispasa.cargapasa.util.DateUtil;
 

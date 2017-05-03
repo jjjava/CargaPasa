@@ -10,7 +10,7 @@ import org.pasa.sispasa.cargapasa.dao.ParticipanteDAOImpl;
 import org.pasa.sispasa.cargapasa.dao.PessoaDAOImpl;
 import org.pasa.sispasa.cargapasa.dao.PlanoDAOImpl;
 import org.pasa.sispasa.cargapasa.dao.TempBenPasaDAOImpl;
-import org.pasa.sispasa.cargapasa.model.Adesao;
+import org.pasa.sispasa.cargapasa.model.AdesaoUsuario;
 import org.pasa.sispasa.cargapasa.model.Associado;
 import org.pasa.sispasa.cargapasa.util.CargaPasaCommon;
 import org.pasa.sispasa.cargapasa.util.DateUtil;
@@ -118,7 +118,7 @@ public class CargaEntidadeAssociado {
     }
 
     private Long newAdesao(TempBenPASA modeloBenef, Long idAssoc) {
-        Adesao adesao = new Adesao();
+        AdesaoUsuario adesao = new AdesaoUsuario();
         adesao.setIdAssociado(idAssoc);
         Long idPlano = getPlano(modeloBenef);
         if (null != idPlano) {

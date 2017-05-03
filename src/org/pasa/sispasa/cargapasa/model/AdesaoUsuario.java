@@ -7,14 +7,14 @@ import java.util.Date;
  *
  * @author Hudson Schumaker
  */
-public class Adesao {
+public class AdesaoUsuario {
     private Long idAdesaoPlano;
     private Long idUsuario;
     private Date dataInclusaoSistema;
     private Long idPlano;
     private Long idAssociado;
     
-    public Adesao(){    
+    public AdesaoUsuario(){    
     }
 
     public Long getIdAdesaoPlano() {

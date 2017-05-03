@@ -33,11 +33,13 @@ public class CargaMapeiaEntidadesThread implements Runnable {
             for (Long k = ini; k < qtdRegistros; k++) {
                 try {
                     TempBenPASA modeloBenef = benDAO.get(k);
-
                     if (null != modeloBenef) {
                         if (1 != modeloBenef.getOk()) {
-                            if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase(CargaPasaCommon.ASSOCIADO)) {
+                            if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase(CargaPasaCommon.USUARIO)) {
                                 cargaEntidadeAssociado.newAssociado(modeloBenef, "A");//Atencao
+                            }
+                            if(modeloBenef.getTipoBeneficiario().equalsIgnoreCase(CargaPasaCommon.ASSOCIADO)){
+                                //
                             }
                         }
                     }

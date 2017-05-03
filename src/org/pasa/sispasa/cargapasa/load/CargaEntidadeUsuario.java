@@ -54,25 +54,25 @@ public class CargaEntidadeUsuario {
     }
 
     private void setType(TempBenPASA modeloBenef) {
-        if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase("A")) {
+        if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase("A")) {//Usuario
             usuarioPlano.setIdTipoUsario(0L);
             usuarioPlano.setStatusUsuario(1);
             usuarioPlano.setIdVinculo(1L);
             return;
         }
-        if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase("B")) {
+        if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase("B")) {//Associado
             usuarioPlano.setIdTipoUsario(0L);
             usuarioPlano.setStatusUsuario(2);
             usuarioPlano.setIdVinculo(1L);
             return;
         }
-        if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase("D")) {
+        if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase("D")) {//Dependente
             usuarioPlano.setIdTipoUsario(1L);
             usuarioPlano.setStatusUsuario(1);
             usuarioPlano.setIdVinculo(2L);
             return;
         }
-        if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase("G")) {
+        if (modeloBenef.getTipoBeneficiario().equalsIgnoreCase("G")) {//Agregado
             usuarioPlano.setIdTipoUsario(2L);
             usuarioPlano.setStatusUsuario(1);
             usuarioPlano.setIdVinculo(3L);
