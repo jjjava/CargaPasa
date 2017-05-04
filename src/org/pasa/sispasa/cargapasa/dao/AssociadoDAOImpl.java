@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.apache.log4j.Logger;
 import org.pasa.sispasa.cargapasa.connection.SQLServerConnection;
 import org.pasa.sispasa.cargapasa.model.Associado;
 
@@ -15,6 +16,7 @@ import org.pasa.sispasa.cargapasa.model.Associado;
 public class AssociadoDAOImpl {
 
     private final Connection conn;
+    private final static Logger LOGGER = Logger.getLogger(AssociadoDAOImpl.class);
 
     public AssociadoDAOImpl() {
         this.conn = SQLServerConnection.getConnectionPipe();
@@ -59,7 +61,7 @@ public class AssociadoDAOImpl {
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
-            System.err.println(this.getClass().getName() + "\n" + ex);
+            LOGGER.error(ex);
         }
     }
 
@@ -76,20 +78,20 @@ public class AssociadoDAOImpl {
                 existe = true;
             }
         } catch (SQLException ex) {
-            System.err.println(this.getClass().getName() + ":\n" + ex);
+            LOGGER.error(ex);
         } finally {
             if (null != rs) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                    LOGGER.error(ex);
                 }
             }
             if (null != stmt) {
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                    LOGGER.error(ex);
                 }
             }
         }

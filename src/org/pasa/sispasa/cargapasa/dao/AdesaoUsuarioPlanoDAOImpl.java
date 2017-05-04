@@ -4,6 +4,7 @@ package org.pasa.sispasa.cargapasa.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import org.apache.log4j.Logger;
 import org.pasa.sispasa.cargapasa.connection.SQLServerConnection;
 import org.pasa.sispasa.cargapasa.model.AdesaoUsuarioPlano;
 
@@ -14,6 +15,7 @@ import org.pasa.sispasa.cargapasa.model.AdesaoUsuarioPlano;
 public class AdesaoUsuarioPlanoDAOImpl {
     
     private final Connection conn;
+    private final static Logger LOGGER = Logger.getLogger(AdesaoUsuarioPlanoDAOImpl.class);
 
     public AdesaoUsuarioPlanoDAOImpl() {
         this.conn = SQLServerConnection.getConnectionPipe();
@@ -39,9 +41,7 @@ public class AdesaoUsuarioPlanoDAOImpl {
            
             ps.close();
         } catch (SQLException ex) {
-            System.err.println(this.getClass().getName() + "\n" + ex);
-        }
-        
-        
+            LOGGER.error(ex);
+        }    
     }
 }

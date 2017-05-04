@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.apache.log4j.Logger;
 import org.pasa.sispasa.cargapasa.connection.SQLServerConnection;
 import org.pasa.sispasa.cargapasa.model.AdesaoUsuario;
 
@@ -15,6 +16,7 @@ import org.pasa.sispasa.cargapasa.model.AdesaoUsuario;
 public class AdesaoPlanoDAOImpl {
 
     private final Connection conn;
+    private final static Logger LOGGER = Logger.getLogger(AdesaoPlanoDAOImpl.class);
 
     public AdesaoPlanoDAOImpl() {
         this.conn = SQLServerConnection.getConnectionPipe();
@@ -45,7 +47,7 @@ public class AdesaoPlanoDAOImpl {
             rs.close();
             ps.close();
         } catch (SQLException ex) {
-            System.err.println(this.getClass().getName() + "\n" + ex);
+            LOGGER.error(ex);
         }
         return id;
     }
