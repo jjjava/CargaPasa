@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.apache.log4j.Logger;
 import org.pasa.sispasa.cargapasa.connection.SQLServerConnection;
 import org.pasa.sispasa.cargapasa.model.Estado;
 
@@ -13,10 +14,14 @@ import org.pasa.sispasa.cargapasa.model.Estado;
  */
 public class EstadoDAOImpl {
 
+    private final static Logger LOGGER = Logger.getLogger(EstadoDAOImpl.class);
     private final Connection conn;
 
+    /*
+    * Construtor
+     */
     public EstadoDAOImpl() {
-        conn = SQLServerConnection.getConnectionPipe();
+        this.conn = SQLServerConnection.getConnectionPipe();
     }
 
     public Estado get(String uf) {
@@ -32,7 +37,7 @@ public class EstadoDAOImpl {
                 estado.setNome("nome");
             }
         } catch (SQLException ex) {
-            System.err.println(this.getClass().getName() + "\n" + ex);
+            LOGGER.error(ex);
             return null;
         } finally {
             if (null != rs) {
@@ -46,7 +51,7 @@ public class EstadoDAOImpl {
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + "\n" + ex);
+                    LOGGER.error(ex);
                 }
             }
         }

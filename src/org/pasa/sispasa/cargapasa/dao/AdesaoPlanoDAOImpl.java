@@ -15,9 +15,13 @@ import org.pasa.sispasa.cargapasa.model.AdesaoUsuario;
  */
 public class AdesaoPlanoDAOImpl {
 
-    private final Connection conn;
     private final static Logger LOGGER = Logger.getLogger(AdesaoPlanoDAOImpl.class);
-
+    private final Connection conn;
+    
+    /**
+     * 
+     * Construtor
+     */
     public AdesaoPlanoDAOImpl() {
         this.conn = SQLServerConnection.getConnectionPipe();
     }

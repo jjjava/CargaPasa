@@ -15,9 +15,14 @@ import org.pasa.sispasa.cargapasa.model.Documento;
  */
 public class DocumentoDAOImpl {
 
-    private final Connection conn;
     private final static Logger LOGGER = Logger.getLogger(DocumentoDAOImpl.class);
+    private final Connection conn;
+    
 
+    /*
+    *
+    * Construtor
+    */
     public DocumentoDAOImpl() {
         this.conn = SQLServerConnection.getConnectionPipe();
     }
@@ -70,7 +75,6 @@ public class DocumentoDAOImpl {
         } catch (SQLException ex) {
              LOGGER.error(ex);
         } finally {
-
         }
     }
 }

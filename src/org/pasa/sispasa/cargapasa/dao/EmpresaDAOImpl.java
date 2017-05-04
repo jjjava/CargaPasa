@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.apache.log4j.Logger;
 import org.pasa.sispasa.cargapasa.connection.SQLServerConnection;
 import org.pasa.sispasa.cargapasa.model.Empresa;
 
@@ -13,10 +14,15 @@ import org.pasa.sispasa.cargapasa.model.Empresa;
  */
 public class EmpresaDAOImpl {
 
+    private final static Logger LOGGER = Logger.getLogger(EmpresaDAOImpl.class);
     private final Connection conn;
 
+    /*
+    *
+    * Construtor
+     */
     public EmpresaDAOImpl() {
-        conn = SQLServerConnection.getConnectionPipe();
+        this.conn = SQLServerConnection.getConnectionPipe();
     }
 
     public Empresa get(Long id) {
@@ -33,20 +39,20 @@ public class EmpresaDAOImpl {
                 empresa.setCodEmpresaVale("cd_empresa_vale");
             }
         } catch (SQLException ex) {
-            System.err.println(this.getClass().getName() + "\n" + ex);
+            LOGGER.error(ex);
         } finally {
             if (null != rs) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + "\n" + ex);
+                    LOGGER.error(ex);
                 }
             }
             if (null != stmt) {
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + "\n" + ex);
+                    LOGGER.error(ex);
                 }
             }
         }
@@ -73,14 +79,14 @@ public class EmpresaDAOImpl {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + "\n" + ex);
+                    LOGGER.error(ex);
                 }
             }
             if (null != stmt) {
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + "\n" + ex);
+                    LOGGER.error(ex);
                 }
             }
         }
@@ -100,20 +106,20 @@ public class EmpresaDAOImpl {
                 id = rs.getLong("id_empresa");
             }
         } catch (SQLException ex) {
-            System.err.println(this.getClass().getName() + "\n" + ex);
+            LOGGER.error(ex);
         } finally {
             if (null != rs) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + "\n" + ex);
+                    LOGGER.error(ex);
                 }
             }
             if (null != stmt) {
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + "\n" + ex);
+                    LOGGER.error(ex);
                 }
             }
         }

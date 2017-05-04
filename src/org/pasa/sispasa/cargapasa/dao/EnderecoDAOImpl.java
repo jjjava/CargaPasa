@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.apache.log4j.Logger;
 import org.pasa.sispasa.cargapasa.connection.SQLServerConnection;
 import org.pasa.sispasa.cargapasa.model.Endereco;
 
@@ -14,8 +15,12 @@ import org.pasa.sispasa.cargapasa.model.Endereco;
  */
 public class EnderecoDAOImpl {
 
+    private final static Logger LOGGER = Logger.getLogger(EmpresaDAOImpl.class);
     private final Connection conn;
 
+    /*
+    * Construtor
+    */
     public EnderecoDAOImpl() {
         this.conn = SQLServerConnection.getConnectionPipe();
     }
@@ -52,10 +57,9 @@ public class EnderecoDAOImpl {
             rs.close();
             ps.close();
         } catch (SQLException ex) {
-            System.err.println(this.getClass().getName() + ":\n" + ex);
+            LOGGER.error(ex);
             return null;
         } finally {
-
         }
         return id;
     }
