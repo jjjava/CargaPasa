@@ -15,7 +15,7 @@ import org.pasa.sispasa.cargapasa.model.Documento;
  */
 public class DocumentoDAOImpl {
 
-    private final static Logger LOGGER = Logger.getLogger(DocumentoDAOImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(DocumentoDAOImpl.class);
     private final Connection conn;
     
 

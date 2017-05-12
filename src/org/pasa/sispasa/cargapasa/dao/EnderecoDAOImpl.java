@@ -15,7 +15,7 @@ import org.pasa.sispasa.cargapasa.model.Endereco;
  */
 public class EnderecoDAOImpl {
 
-    private final static Logger LOGGER = Logger.getLogger(EmpresaDAOImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(EmpresaDAOImpl.class);
     private final Connection conn;
 
     /*

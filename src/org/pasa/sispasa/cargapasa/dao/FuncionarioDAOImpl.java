@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.apache.log4j.Logger;
 import org.pasa.sispasa.cargapasa.connection.SQLServerConnection;
 import org.pasa.sispasa.cargapasa.model.Empresa;
 import org.pasa.sispasa.cargapasa.model.Funcionario;
@@ -36,20 +37,20 @@ public class FuncionarioDAOImpl {
                 id = rs.getLong("ID_FUNCIONARIO");
             }
         } catch (SQLException ex) {
-            System.err.println(this.getClass().getName() + ":\n" + ex);
+            Logger.getLogger(FuncionarioDAOImpl.class).error(ex);
         } finally {
             if (null != rs) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                    Logger.getLogger(FuncionarioDAOImpl.class).error(ex);
                 }
             }
             if (null != stmt) {
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                    Logger.getLogger(FuncionarioDAOImpl.class).error(ex);
                 }
             }
         }
@@ -74,20 +75,20 @@ public class FuncionarioDAOImpl {
                 id = rs.getLong("id_funcionario");
             }
         } catch (SQLException ex) {
-            System.err.println(this.getClass().getName() + ":\n" + ex);
+            Logger.getLogger(FuncionarioDAOImpl.class).error(ex);
         } finally {
             if (null != rs) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                    Logger.getLogger(FuncionarioDAOImpl.class).error(ex);
                 }
             }
             if (null != stmt) {
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                    Logger.getLogger(FuncionarioDAOImpl.class).error(ex);
                 }
             }
         }
@@ -110,20 +111,20 @@ public class FuncionarioDAOImpl {
                 funcionario.setPessoa(new Pessoa(rs.getLong("id_pessoa")));
             }
         } catch (SQLException ex) {
-            System.err.println(this.getClass().getName() + ":\n" + ex);
+            Logger.getLogger(FuncionarioDAOImpl.class).error(ex);
         } finally {
             if (null != rs) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                    Logger.getLogger(FuncionarioDAOImpl.class).error(ex);
                 }
             }
             if (null != stmt) {
                 try {
                     stmt.close();
                 } catch (SQLException ex) {
-                    System.err.println(this.getClass().getName() + ":\n" + ex);
+                    Logger.getLogger(FuncionarioDAOImpl.class).error(ex);
                 }
             }
         }

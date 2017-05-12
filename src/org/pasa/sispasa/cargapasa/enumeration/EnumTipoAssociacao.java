@@ -18,6 +18,10 @@ public enum EnumTipoAssociacao {
         this.descricao = descricao;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public int getIndice() {
         return indice;
     }

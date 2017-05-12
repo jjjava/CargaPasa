@@ -14,7 +14,7 @@ import org.pasa.sispasa.cargapasa.model.Estado;
  */
 public class EstadoDAOImpl {
 
-    private final static Logger LOGGER = Logger.getLogger(EstadoDAOImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(EstadoDAOImpl.class);
     private final Connection conn;
 
     /*

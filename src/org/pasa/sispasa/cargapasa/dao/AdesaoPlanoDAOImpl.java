@@ -15,7 +15,7 @@ import org.pasa.sispasa.cargapasa.model.AdesaoUsuario;
  */
 public class AdesaoPlanoDAOImpl {
 
-    private final static Logger LOGGER = Logger.getLogger(AdesaoPlanoDAOImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(AdesaoPlanoDAOImpl.class);
     private final Connection conn;
     
     /**

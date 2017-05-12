@@ -12,18 +12,34 @@ public class TempBenPasaBeanImpl {
 
     private final TempBenPasaDAOImpl dao;
 
+    /*
+    *
+    * Construtor
+    */
     public TempBenPasaBeanImpl() {
         this.dao = new TempBenPasaDAOImpl();
     }
 
+    /*
+    * @param TempBenPASA modelo
+    * @return void
+    */
     public void save(TempBenPASA modelo) {
         this.dao.save(modelo);
     }
     
+    /*
+    * @return void
+    */
     public void closeConnection(){
         this.dao.closeConnection();
     }
 
+    
+    /*
+    * @param List<TempBenPASA> modelo
+    * @return void
+    */
     public void save(List<TempBenPASA> modelo) {
         for (TempBenPASA m : modelo) {
             this.dao.save(m);
